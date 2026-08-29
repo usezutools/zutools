@@ -6,6 +6,11 @@ All notable changes to ZU Tools are documented in this file. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- Updated package documentation now that Core and React are publicly available
+  from npm.
+
 ## [0.1.0] - 2026-08-30
 
 ### Added

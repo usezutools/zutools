@@ -5,6 +5,8 @@
 **Local-first utilities for files and data. No login, no uploads, no server-side processing.**
 
 [![CI](https://github.com/usezutools/zutools/actions/workflows/ci.yml/badge.svg)](https://github.com/usezutools/zutools/actions/workflows/ci.yml)
+[![npm core](https://img.shields.io/npm/v/%40zutools%2Fcore?label=%40zutools%2Fcore)](https://www.npmjs.com/package/@zutools/core)
+[![npm react](https://img.shields.io/npm/v/%40zutools%2Freact?label=%40zutools%2Freact)](https://www.npmjs.com/package/@zutools/react)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 </div>
@@ -13,11 +15,10 @@ ZU Tools is an open-source collection of browser tools and reusable JavaScript
 engines. Use one small function, embed one React tool, or add the complete tools
 catalogue to an existing application.
 
-> [!IMPORTANT]
-> ZU Tools is currently a pre-release project. The packages use version `0.1.0`
-> locally but have not been published to npm yet. The installation commands below
-> describe the public package contract; see [Using the packages before the npm
-> release](#using-the-packages-before-the-npm-release) to try it today.
+> [!NOTE]
+> ZU Tools follows semantic versioning and is currently in the `0.x` series.
+> Public APIs may evolve between minor releases; use only declared package
+> exports and review the changelog when upgrading.
 
 ## Why ZU Tools?
 
@@ -357,40 +358,6 @@ externalized consistently so the comparison measures ZU Tools code only.
 
 CI fails when a measured bundle grows beyond the committed tolerance. See
 [`benchmarks/README.md`](benchmarks/README.md) for the update procedure.
-
-## Using the packages before the npm release
-
-Clone and build the repository:
-
-```bash
-git clone https://github.com/usezutools/zutools.git
-cd zutools
-npm ci
-npm run build
-```
-
-For development inside a nearby project, use local package paths:
-
-```json
-{
-  "dependencies": {
-    "@zutools/core": "file:../zutools/packages/core",
-    "@zutools/react": "file:../zutools/packages/react"
-  }
-}
-```
-
-For the closest simulation of npm, generate tarballs and install both resulting
-files in a clean consumer:
-
-```bash
-npm pack --workspace=@zutools/core
-npm pack --workspace=@zutools/react
-```
-
-> [!WARNING]
-> The API may change before the first npm release. Do not depend on `dist/`
-> internals that are not declared in a package `exports` map.
 
 ## Development
 

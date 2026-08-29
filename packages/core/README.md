@@ -5,10 +5,6 @@ Framework-independent, local-first engines from
 Use them from JavaScript, TypeScript, Angular, Vue, Svelte, React, Web Workers or
 any ESM-compatible bundler.
 
-> [!IMPORTANT]
-> This package is not published to npm yet. Version `0.1.0` describes the local
-> pre-release package contract.
-
 ## Install
 
 ```bash

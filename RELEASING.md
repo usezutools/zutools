@@ -36,25 +36,10 @@ The workflow must be run from `main` with:
 - the exact package version;
 - confirmation set to `publish`.
 
-## Bootstrap release `0.1.0`
+## Authentication and npm protection
 
-npm only allows Trusted Publishing to be configured after a package exists.
-The first release therefore needs a one-time granular npm token:
-
-1. Create a short-lived granular token that can create and publish public
-   packages in the `@zutools` organization and can bypass 2FA for automation.
-2. Store it as the `NPM_TOKEN` secret on the `npm-production` GitHub environment.
-3. Run **Release packages** manually for `0.1.0` and approve the environment.
-4. Verify both npm packages and the GitHub release before continuing.
-
-The workflow can resume a partial first release: if Core exists but React does
-not, a reviewed rerun skips Core and publishes React. It refuses to run if both
-versions already exist.
-
-## Move to Trusted Publishing immediately afterwards
-
-Configure a trusted GitHub Actions publisher in the settings of both npm
-packages using exactly:
+Both packages use npm Trusted Publishing with the following GitHub Actions
+identity:
 
 | Field | Value |
 |---|---|
@@ -64,15 +49,21 @@ packages using exactly:
 | Environment | `npm-production` |
 | Allowed action | `npm publish` |
 
-Then:
+The `npm-production` environment has no npm token. Traditional token publishing
+is disabled for Core and React. The workflow authenticates through a short-lived
+OIDC credential created for the reviewed run, and `id-token: write` must remain
+enabled.
 
-1. Remove the `NPM_TOKEN` environment secret.
-2. Restrict traditional token publishing in each npm package's settings.
-3. Keep `id-token: write` on the release workflow.
+npm generates provenance automatically for Trusted Publishing. The explicit
+`--provenance` flag remains in the workflow so the intended supply-chain
+contract is visible.
 
-Future releases will authenticate through short-lived OIDC credentials and npm
-will generate provenance automatically. The explicit `--provenance` flag is
-retained so the intended supply-chain contract remains visible in the workflow.
+## Partial release recovery
+
+The workflow publishes Core before React. If Core succeeds but React fails, a
+reviewed rerun of the same version skips Core and retries React. It refuses to
+run when both package versions already exist. Do not publish manually or change
+the version while investigating a partial release.
 
 ## Dry run versus release
 

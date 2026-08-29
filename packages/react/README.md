@@ -4,10 +4,6 @@ Ready-made local-first React interfaces from
 [ZU Tools](https://github.com/usezutools/zutools#readme). Files and text are
 processed on the user's device and are not uploaded by the library.
 
-> [!IMPORTANT]
-> This package is not published to npm yet. Version `0.1.0` describes the local
-> pre-release package contract.
-
 ## Requirements
 
 - React 18.2 or newer.

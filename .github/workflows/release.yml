@@ -104,23 +104,11 @@ jobs:
 
       - name: Publish Core with provenance
         if: steps.registry.outputs.core_published != 'true'
-        run: |
-          if [ -z "$NODE_AUTH_TOKEN" ]; then
-            unset NODE_AUTH_TOKEN
-          fi
-          npm publish --workspace=@zutools/core --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --workspace=@zutools/core --access public --provenance
 
       - name: Publish React with provenance
         if: steps.registry.outputs.react_published != 'true'
-        run: |
-          if [ -z "$NODE_AUTH_TOKEN" ]; then
-            unset NODE_AUTH_TOKEN
-          fi
-          npm publish --workspace=@zutools/react --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --workspace=@zutools/react --access public --provenance
 
       - name: Create GitHub tag and release
         env:
