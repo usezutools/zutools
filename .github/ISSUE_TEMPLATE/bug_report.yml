@@ -1,0 +1,82 @@
+name: Bug report
+description: Report reproducible incorrect behaviour in a ZU Tools package.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve ZU Tools. Do not include confidential files or security vulnerabilities in this public form.
+  - type: dropdown
+    id: package
+    attributes:
+      label: Affected package
+      options:
+        - "@zutools/core"
+        - "@zutools/react"
+        - Examples or repository tooling
+        - Unsure
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: entry
+    attributes:
+      label: Import or tool
+      description: Select the closest area and include the exact import in the reproduction.
+      options:
+        - Word Counter
+        - Base64
+        - CSV / JSON
+        - Text transformations
+        - Unix timestamps
+        - Images or metadata
+        - Complete React catalogue
+        - Build, types or styles
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide code, a small public repository or exact steps. Replace private data with synthetic input.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Chrome 140, React 18.3, Node.js 24, macOS
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: This report contains no private or confidential user data.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

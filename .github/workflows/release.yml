@@ -1,0 +1,133 @@
+name: Release packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version already declared in every package.json
+        required: true
+        type: string
+      confirmation:
+        description: Select publish to authorize npm and GitHub release creation
+        required: true
+        type: choice
+        options:
+          - cancel
+          - publish
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Publish ${{ inputs.version }}
+    if: github.ref == 'refs/heads/main' && inputs.confirmation == 'publish'
+    runs-on: ubuntu-latest
+    environment: npm-production
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Install current npm CLI
+        run: npm install --global npm@12.0.2
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Validate release contract
+        run: npm run release:check -- "$RELEASE_VERSION" --publish
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+
+      - name: Run package tests
+        run: npm test
+
+      - name: Validate catalogue
+        run: npm run validate
+
+      - name: Validate dependency licenses
+        run: npm run licenses:check
+
+      - name: Audit dependency vulnerabilities
+        run: npm audit --audit-level=high
+
+      - name: Test publishable tarballs
+        run: npm run test:tarballs
+
+      - name: Build package examples
+        run: npm run examples:test
+
+      - name: Enforce bundle limits
+        run: npm run measure:tree-shaking
+
+      - name: Rehearse npm publication
+        run: npm run publish:dry-run
+
+      - name: Inspect npm registry state
+        id: registry
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          core_published=false
+          react_published=false
+          if npm view "@zutools/core@$RELEASE_VERSION" version >/dev/null 2>&1; then
+            core_published=true
+          fi
+          if npm view "@zutools/react@$RELEASE_VERSION" version >/dev/null 2>&1; then
+            react_published=true
+          fi
+          if [ "$react_published" = true ] && [ "$core_published" = false ]; then
+            echo "React exists without its matching Core release" >&2
+            exit 1
+          fi
+          if [ "$react_published" = true ] && [ "$core_published" = true ]; then
+            echo "Both packages already exist at $RELEASE_VERSION" >&2
+            exit 1
+          fi
+          echo "core_published=$core_published" >> "$GITHUB_OUTPUT"
+          echo "react_published=$react_published" >> "$GITHUB_OUTPUT"
+
+      - name: Publish Core with provenance
+        if: steps.registry.outputs.core_published != 'true'
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            unset NODE_AUTH_TOKEN
+          fi
+          npm publish --workspace=@zutools/core --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish React with provenance
+        if: steps.registry.outputs.react_published != 'true'
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            unset NODE_AUTH_TOKEN
+          fi
+          npm publish --workspace=@zutools/react --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub tag and release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          gh release create "v$RELEASE_VERSION" \
+            --target "$GITHUB_SHA" \
+            --title "ZU Tools v$RELEASE_VERSION" \
+            --generate-notes

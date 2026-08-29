@@ -62,6 +62,9 @@ jobs:
       - name: Inspect publishable packages
         run: npm run pack:check
 
+      - name: Validate dependency licenses
+        run: npm run licenses:check
+
       - name: Test installed tarballs
         run: npm run test:tarballs
 

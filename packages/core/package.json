@@ -2,8 +2,32 @@
   "name": "@zutools/core",
   "version": "0.1.0",
   "description": "Framework-agnostic local-first engines and catalogue for ZU Tools.",
+  "keywords": [
+    "local-first",
+    "browser-tools",
+    "privacy",
+    "utilities",
+    "typescript",
+    "esm",
+    "word-counter",
+    "csv",
+    "base64"
+  ],
+  "author": "ZU Tools contributors",
+  "homepage": "https://usezutools.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usezutools/zutools.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/usezutools/zutools/issues"
+  },
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "sideEffects": false,
   "files": [
     "dist",
@@ -67,7 +91,8 @@
     }
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

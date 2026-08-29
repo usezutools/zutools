@@ -2,8 +2,31 @@
   "name": "@zutools/react",
   "version": "0.1.0",
   "description": "Local-first browser tools and an embeddable React catalogue for ZU Tools.",
+  "keywords": [
+    "local-first",
+    "browser-tools",
+    "privacy",
+    "react",
+    "components",
+    "typescript",
+    "word-counter",
+    "toolkit"
+  ],
+  "author": "ZU Tools contributors",
+  "homepage": "https://usezutools.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usezutools/zutools.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/usezutools/zutools/issues"
+  },
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "sideEffects": [
     "**/*.css"
   ],
@@ -54,7 +77,8 @@
     "react-dom": ">=18.2.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "node scripts/build.mjs && tsc -p tsconfig.build.json",

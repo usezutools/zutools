@@ -2,6 +2,20 @@
   "name": "@zutools/workspace",
   "private": true,
   "version": "0.1.0",
+  "description": "Local-first browser tools and framework-independent JavaScript engines.",
+  "license": "MIT",
+  "author": "ZU Tools contributors",
+  "homepage": "https://usezutools.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usezutools/zutools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/usezutools/zutools/issues"
+  },
+  "engines": {
+    "node": ">=22"
+  },
   "workspaces": [
     "packages/*"
   ],
@@ -26,6 +40,9 @@
     "examples:prepare": "npm run build && node scripts/prepare-examples.mjs",
     "examples:test": "npm run examples:prepare && npm run build --prefix examples/vanilla && npm run build --prefix examples/react",
     "example:vanilla": "npm run examples:prepare && npm run dev --prefix examples/vanilla",
-    "example:react": "npm run examples:prepare && npm run dev --prefix examples/react"
+    "example:react": "npm run examples:prepare && npm run dev --prefix examples/react",
+    "licenses:check": "node scripts/check-licenses.mjs",
+    "release:check": "node scripts/check-release.mjs",
+    "publish:dry-run": "npm run release:check && npm publish --dry-run --workspace=@zutools/core && npm publish --dry-run --workspace=@zutools/react"
   }
 }

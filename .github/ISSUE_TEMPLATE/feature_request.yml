@@ -1,0 +1,48 @@
+name: Feature request
+description: Propose a new local-first tool or public API improvement.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Explain the user need before describing an implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed capability
+      description: Describe the expected Core API, React interface or integration.
+    validations:
+      required: true
+  - type: dropdown
+    id: processing
+    attributes:
+      label: Can it run entirely on the user's device?
+      options:
+        - Yes
+        - Unsure
+        - No
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Existing standards or libraries
+      description: Link maintained alternatives and include their licenses when known.
+  - type: textarea
+    id: limits
+    attributes:
+      label: Formats, limits and privacy considerations
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched existing issues and the current catalogue.
+          required: true
+        - label: I have not pasted private product strategy or confidential data.
+          required: true

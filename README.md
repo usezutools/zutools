@@ -312,11 +312,11 @@ Available stylesheets:
 
 ```mermaid
 flowchart LR
-  A[Your JavaScript / Angular / Vue app] --> C[@zutools/core]
-  R[Your React app] --> UI[@zutools/react]
+  A["Your JavaScript / Angular / Vue app"] --> C["@zutools/core"]
+  R["Your React app"] --> UI["@zutools/react"]
   UI --> C
-  C --> B[Browser APIs]
-  B --> O[Result on the user's device]
+  C --> B["Browser APIs"]
+  B --> O["Result on the user's device"]
 ```
 
 ```text
@@ -401,6 +401,7 @@ npm ci                         # Reproduce the locked dependency tree
 npm run build                  # Compile Core and React into dist/
 npm test                       # Build and run package tests
 npm run validate               # Validate catalogue references
+npm run licenses:check         # Enforce the approved dependency licenses
 npm run pack:check             # Inspect publishable package contents
 npm run test:tarballs          # Install tarballs in external test projects
 npm run examples:test          # Build the permanent Vanilla and React examples
@@ -434,6 +435,11 @@ and GitHub Actions weekly; normal major upgrades are deliberately excluded.
 - [`@zutools/core`](packages/core/README.md)
 - [`@zutools/react`](packages/react/README.md)
 - [Bundle measurement](benchmarks/README.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Release process](RELEASING.md)
+- [Changelog](CHANGELOG.md)
+- [Third-party notices](THIRD_PARTY_NOTICES.md)
 
 ## Contributing
 
