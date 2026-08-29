@@ -1,11 +1,21 @@
 # `@zutools/core`
 
-Motores local-first de ZU Tools sin React ni dependencias de ejecución. Puede
-utilizarse desde JavaScript, Angular, React, Web Workers o cualquier bundler ESM.
+Framework-independent, local-first engines from
+[ZU Tools](https://github.com/usezutools/zutools#readme).
+Use them from JavaScript, TypeScript, Angular, Vue, Svelte, React, Web Workers or
+any ESM-compatible bundler.
 
-El paquete publicado contiene ESM compilado, source maps, declaraciones
-TypeScript y el catálogo JSON dentro de `dist/`; los archivos fuente no forman
-parte del tarball.
+> [!IMPORTANT]
+> This package is not published to npm yet. Version `0.1.0` describes the local
+> pre-release package contract.
+
+## Install
+
+```bash
+npm install @zutools/core
+```
+
+## Use one capability
 
 ```js
 import { csvToObjects, objectsToCsv } from '@zutools/core/csv';
@@ -14,36 +24,50 @@ import { timestampToDate } from '@zutools/core/timestamp';
 import { analyzeText } from '@zutools/core/word-counter';
 ```
 
-También se pueden importar todas las funciones desde `@zutools/core`, pero las
-entradas por capacidad facilitan el tree-shaking y hacen explícito qué motor usa
-una aplicación.
+All functions can also be imported from `@zutools/core`, but capability entries
+make the engine in use explicit and give bundlers the smallest possible input.
 
-El paquete no muestra interfaces, no descarga archivos y no hace peticiones de
-red. Las funciones de imagen de `@zutools/core/image` utilizan APIs del navegador
-como Canvas, pero siguen siendo independientes del framework.
+## Entries
 
-## Entradas
-
-| Entrada | Contenido |
+| Entry | Contents |
 |---|---|
-| `@zutools/core/base64` | texto, bytes, ArrayBuffer y Data URI |
-| `@zutools/core/csv` | CSV ↔ objetos JavaScript |
-| `@zutools/core/json` | parsear, formatear y minificar JSON |
-| `@zutools/core/text` | transformaciones de mayúsculas y estilos |
-| `@zutools/core/timestamp` | timestamps Unix y fechas |
-| `@zutools/core/image` | carga, Canvas y generación de Blob |
-| `@zutools/core/image-metadata` | lectura local de EXIF/PNG/WebP |
-| `@zutools/core/catalog` | catálogo, selectores y validación |
-| `@zutools/core/catalog.json` | catálogo JSON sin ejecutar JavaScript |
-| `@zutools/core/word-counter` | palabras, grafemas, frases, párrafos y tiempo de lectura |
+| `@zutools/core/base64` | Text, bytes, `ArrayBuffer`, Base64 and Data URIs |
+| `@zutools/core/csv` | CSV ↔ JavaScript objects |
+| `@zutools/core/json` | JSON parsing, validation, formatting and minification |
+| `@zutools/core/text` | Case and naming-style transformations |
+| `@zutools/core/timestamp` | Unix timestamps and JavaScript dates |
+| `@zutools/core/word-counter` | Words, graphemes, sentences, paragraphs and reading time |
+| `@zutools/core/image` | Browser image loading, Canvas and `Blob` output |
+| `@zutools/core/image-metadata` | Local EXIF, PNG and WebP metadata reading |
+| `@zutools/core/catalog` | Typed catalogue, selectors and validation |
+| `@zutools/core/catalog.json` | Raw catalogue JSON without executing JavaScript |
 
-## Desarrollo
+## Runtime behaviour
+
+- No React or UI dependency.
+- No runtime package dependencies.
+- No network requests or uploads.
+- ESM with TypeScript declarations and source maps.
+- Text and data engines can run outside the browser.
+- Image helpers use browser APIs such as Canvas and DOM image types.
+
+Only compiled files from `dist/` are included in the npm tarball. Treat the
+declared package `exports` as the public API.
+
+## Development
+
+From the monorepo root:
 
 ```bash
 npm run build --workspace=@zutools/core
 npm run test --workspace=@zutools/core
+npm run validate:catalog --workspace=@zutools/core
 ```
 
-## Licencia
+See the [repository documentation](https://github.com/usezutools/zutools#readme)
+for Angular examples, tarball testing, bundle measurements and the complete
+development workflow.
 
-MIT.
+## License
+
+[MIT](LICENSE).

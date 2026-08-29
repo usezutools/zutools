@@ -1,12 +1,41 @@
 # `@zutools/react`
 
-Implementación local-first actual de ZU Tools. Los archivos se procesan en el
-dispositivo y no se suben a ningún servidor.
+Ready-made local-first React interfaces from
+[ZU Tools](https://github.com/usezutools/zutools#readme). Files and text are
+processed on the user's device and are not uploaded by the library.
 
-> El paquete todavía no está publicado en npm. Sus motores y el catálogo ya
-> proceden de `@zutools/core`; este paquete contiene la capa de interfaz React.
+> [!IMPORTANT]
+> This package is not published to npm yet. Version `0.1.0` describes the local
+> pre-release package contract.
 
-## Uso dentro del workspace
+## Requirements
+
+- React 18.2 or newer.
+- React DOM 18.2 or newer.
+- `lucide-react` 0.400 or newer.
+- `@zutools/core` 0.1.0.
+
+## Install
+
+```bash
+npm install @zutools/core @zutools/react lucide-react
+```
+
+## Use one tool
+
+Import the individual component and stylesheet to avoid loading the catalogue
+or the complete Free registry:
+
+```jsx
+import { WordCounter } from '@zutools/react/word-counter';
+import '@zutools/react/word-counter.css';
+
+export function TextMetrics() {
+  return <WordCounter language="en" />;
+}
+```
+
+## Embed the complete Free catalogue
 
 ```jsx
 import {
@@ -19,7 +48,7 @@ import '@zutools/react/styles.css';
 export function ToolsPage() {
   return (
     <ToolsPortal
-      language="es"
+      language="en"
       catalog={freeToolsCatalog}
       registry={freeToolRegistry}
     />
@@ -27,41 +56,43 @@ export function ToolsPage() {
 }
 ```
 
-`freeToolsCatalog` solo incluye herramientas con implementación ejecutable. El
-catálogo completo procede de `@zutools/core/catalog`.
+`freeToolsCatalog` contains only tools with executable implementations. The
+complete source catalogue comes from `@zutools/core/catalog`.
 
-El paquete es ESM, requiere React 18 o posterior como `peerDependency` y solo
-publica JavaScript compilado, declaraciones TypeScript y CSS desde `dist/`.
-`styles.css` incluye tanto el catálogo como el workspace de cada herramienta;
-`workspace.css` está disponible para consumidores que importen únicamente las
-implementaciones.
+## Style imports
 
-## Herramienta individual
+| Import | Contents |
+|---|---|
+| `@zutools/react/styles.css` | Catalogue shell and every tool workspace |
+| `@zutools/react/workspace.css` | Implementations without the catalogue shell |
+| `@zutools/react/word-counter.css` | Isolated Word Counter styles |
 
-Para utilizar solamente el contador sin cargar el portal ni el registro Free:
+The package uses plain CSS. Override `--zutools-text`, `--zutools-muted` and
+`--zutools-accent` on the portal root to match your application.
 
-```jsx
-import { WordCounter } from '@zutools/react/word-counter';
-import '@zutools/react/word-counter.css';
+## Package behaviour
 
-export function TextMetrics() {
-  return <WordCounter language="es" />;
-}
-```
+- `@zutools/react` delegates transformations to `@zutools/core`.
+- React, React DOM and Lucide are peer dependencies, not bundled copies.
+- CSS is exported separately.
+- The package contains compiled ESM, declarations and source maps from `dist/`.
+- Source JSX is not part of the published contract.
 
-## Desarrollo
+## Development
 
-Desde la raíz:
+From the monorepo root:
 
 ```bash
-npm test
-npm run build
-npm run validate
-npm run pack:check
+npm run build --workspace=@zutools/react
+npm run test --workspace=@zutools/react
 npm run test:tarballs
 npm run measure:tree-shaking
 ```
 
-## Licencia
+See the [repository documentation](https://github.com/usezutools/zutools#readme)
+for the full portal API, theming, architecture and consumer examples.
 
-MIT para el código propio. Cada dependencia conserva su licencia.
+## License
+
+[MIT](LICENSE) for ZU Tools original code. Dependencies retain their own
+licenses.

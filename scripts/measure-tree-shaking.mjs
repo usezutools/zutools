@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
-import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +14,9 @@ const artifactsDir = join(temporaryRoot, 'artifacts');
 const consumerDir = join(temporaryRoot, 'consumer');
 const coreTarball = join(artifactsDir, 'zutools-core-0.1.0.tgz');
 const reactTarball = join(artifactsDir, 'zutools-react-0.1.0.tgz');
+const reportPath = join(workspaceRoot, 'benchmarks/tree-shaking.json');
+const allowedGrowthRatio = 0.05;
+const allowedGrowthBytes = 64;
 
 function run(command, args, cwd) {
   const result = spawnSync(command, args, {
@@ -56,6 +59,39 @@ async function measure(entryPoint, external = []) {
       javascript: { bytes: 0, gzipBytes: 0 },
       css: { bytes: 0, gzipBytes: 0 },
     }
+  );
+}
+
+function checkAgainstBaseline(report, baseline) {
+  const regressions = [];
+
+  for (const [entry, metrics] of Object.entries(report)) {
+    for (const kind of ['javascript', 'css']) {
+      const currentBytes = metrics[kind].gzipBytes;
+      const baselineBytes = baseline[entry]?.[kind]?.gzipBytes;
+      if (typeof baselineBytes !== 'number') {
+        regressions.push(`${entry}.${kind}: missing from the committed baseline`);
+        continue;
+      }
+      if (baselineBytes === 0 && currentBytes === 0) continue;
+
+      const limit = Math.ceil(
+        baselineBytes * (1 + allowedGrowthRatio) + allowedGrowthBytes
+      );
+      if (currentBytes > limit) {
+        regressions.push(
+          `${entry}.${kind}: ${currentBytes} gzip bytes exceeds the ${limit}-byte limit ` +
+            `(baseline: ${baselineBytes})`
+        );
+      }
+    }
+  }
+
+  assert.equal(
+    regressions.length,
+    0,
+    `Bundle-size regression detected:\n${regressions.join('\n')}\n` +
+      'If the increase is intentional, review it and run npm run measure:tree-shaking:update.'
   );
 }
 
@@ -153,9 +189,13 @@ try {
   );
 
   if (process.argv.includes('--write')) {
-    const reportPath = join(workspaceRoot, 'benchmarks/tree-shaking.json');
     await mkdir(dirname(reportPath), { recursive: true });
     await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`);
+    console.log('Tree-shaking baseline updated.');
+  } else if (process.argv.includes('--check')) {
+    const baseline = JSON.parse(await readFile(reportPath, 'utf8'));
+    checkAgainstBaseline(report, baseline);
+    console.log('Tree-shaking measurements are within the committed limits.');
   }
 } finally {
   await rm(temporaryRoot, { recursive: true, force: true });
