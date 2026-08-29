@@ -8,18 +8,36 @@
     "**/*.css"
   ],
   "files": [
-    "tools",
-    "!tools/**/*.test.mjs",
+    "dist",
     "README.md",
     "LICENSE"
   ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./tools/index.js",
-    "./free": "./tools/free.js",
-    "./catalog": "./tools/catalog.js",
-    "./implementations": "./tools/implementations/index.js",
-    "./styles.css": "./tools/tools.css",
-    "./workspace.css": "./tools/implementations/implementations.css"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./free": {
+      "types": "./dist/free.d.ts",
+      "import": "./dist/free.js",
+      "default": "./dist/free.js"
+    },
+    "./catalog": {
+      "types": "./dist/catalog.d.ts",
+      "import": "./dist/catalog.js",
+      "default": "./dist/catalog.js"
+    },
+    "./implementations": {
+      "types": "./dist/implementations/index.d.ts",
+      "import": "./dist/implementations.js",
+      "default": "./dist/implementations.js"
+    },
+    "./styles.css": "./dist/index.css",
+    "./workspace.css": "./dist/implementations.css"
   },
   "dependencies": {
     "@zutools/core": "0.1.0"
@@ -33,7 +51,8 @@
     "access": "public"
   },
   "scripts": {
-    "test": "node -e \"import('@zutools/core').then(() => console.log('Core dependency resolved'))\"",
-    "prepack": "npm test"
+    "build": "node scripts/build.mjs && tsc -p tsconfig.build.json",
+    "test": "node -e \"Promise.all([import('@zutools/core'), import('./dist/index.js')]).then(() => console.log('Compiled packages resolved'))\"",
+    "prepack": "npm run build && npm test"
   }
 }

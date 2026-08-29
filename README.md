@@ -17,10 +17,16 @@ las transformaciones.
 
 ```bash
 npm install
+npm run build
 npm test
 npm run validate
 npm run pack:check
+npm run test:tarballs
 ```
+
+Los paquetes son ESM y publican exclusivamente archivos compilados desde
+`dist/`. `npm run test:tarballs` instala los artefactos en consumidores
+temporales independientes para comprobar JavaScript, React, CSS y TypeScript.
 
 ## Uso provisional
 
@@ -30,6 +36,7 @@ import {
   freeToolsCatalog,
   freeToolRegistry,
 } from '@zutools/react/free';
+import '@zutools/react/styles.css';
 ```
 
 La API puede cambiar antes de `0.1.0`.

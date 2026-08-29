@@ -215,9 +215,9 @@ export default function ToolsPortal({
   featuredToolIds = FEATURED_IDS,
   brandLabel = 'ZU Tools Free',
   className = '',
-  requestedToolId,
-  onToolOpen,
-  onToolClose,
+  requestedToolId = null,
+  onToolOpen = undefined,
+  onToolClose = undefined,
 }) {
   const copy = UI[language] || UI.es;
   const portalTitleId = useId();

@@ -14,9 +14,9 @@ export interface ToolCategory {
 }
 
 export interface ToolsCatalog {
-  categories: ToolCategory[];
-  tools: ToolDefinition[];
-  implementationScope?: Record<string, unknown>;
+  categories: readonly ToolCategory[];
+  tools: readonly ToolDefinition[];
+  implementationScope?: Readonly<Record<string, unknown>>;
   [key: string]: unknown;
 }
 

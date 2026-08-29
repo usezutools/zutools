@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "outDir": "dist",
+    "rootDir": "tools",
+    "skipLibCheck": true,
+    "target": "ES2020"
+  },
+  "include": ["tools/**/*.js", "tools/**/*.jsx"],
+  "exclude": ["tools/**/*.test.mjs"]
+}

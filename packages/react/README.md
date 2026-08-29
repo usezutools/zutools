@@ -14,6 +14,7 @@ import {
   freeToolsCatalog,
   freeToolRegistry,
 } from '@zutools/react/free';
+import '@zutools/react/styles.css';
 
 export function ToolsPage() {
   return (
@@ -29,14 +30,22 @@ export function ToolsPage() {
 `freeToolsCatalog` solo incluye herramientas con implementación ejecutable. El
 catálogo completo procede de `@zutools/core/catalog`.
 
+El paquete es ESM, requiere React 18 o posterior como `peerDependency` y solo
+publica JavaScript compilado, declaraciones TypeScript y CSS desde `dist/`.
+`styles.css` incluye tanto el catálogo como el workspace de cada herramienta;
+`workspace.css` está disponible para consumidores que importen únicamente las
+implementaciones.
+
 ## Desarrollo
 
 Desde la raíz:
 
 ```bash
 npm test
+npm run build
 npm run validate
 npm run pack:check
+npm run test:tarballs
 ```
 
 ## Licencia

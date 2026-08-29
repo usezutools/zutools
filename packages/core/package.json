@@ -6,58 +6,68 @@
   "license": "MIT",
   "sideEffects": false,
   "files": [
-    "src",
-    "!src/**/*.test.mjs",
-    "catalog",
+    "dist",
     "README.md",
     "LICENSE"
   ],
-  "types": "./src/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "import": "./src/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./base64": {
-      "types": "./src/base64.d.ts",
-      "import": "./src/base64.js"
+      "types": "./dist/base64.d.ts",
+      "import": "./dist/base64.js",
+      "default": "./dist/base64.js"
     },
     "./catalog": {
-      "types": "./src/catalog.d.ts",
-      "import": "./src/catalog.js"
+      "types": "./dist/catalog.d.ts",
+      "import": "./dist/catalog.js",
+      "default": "./dist/catalog.js"
     },
-    "./catalog.json": "./catalog/tools.json",
+    "./catalog.json": "./dist/catalog/tools.json",
     "./csv": {
-      "types": "./src/csv.d.ts",
-      "import": "./src/csv.js"
+      "types": "./dist/csv.d.ts",
+      "import": "./dist/csv.js",
+      "default": "./dist/csv.js"
     },
     "./image": {
-      "types": "./src/image.d.ts",
-      "import": "./src/image.js"
+      "types": "./dist/image.d.ts",
+      "import": "./dist/image.js",
+      "default": "./dist/image.js"
     },
     "./image-metadata": {
-      "types": "./src/image-metadata.d.ts",
-      "import": "./src/image-metadata.js"
+      "types": "./dist/image-metadata.d.ts",
+      "import": "./dist/image-metadata.js",
+      "default": "./dist/image-metadata.js"
     },
     "./json": {
-      "types": "./src/json.d.ts",
-      "import": "./src/json.js"
+      "types": "./dist/json.d.ts",
+      "import": "./dist/json.js",
+      "default": "./dist/json.js"
     },
     "./text": {
-      "types": "./src/text.d.ts",
-      "import": "./src/text.js"
+      "types": "./dist/text.d.ts",
+      "import": "./dist/text.js",
+      "default": "./dist/text.js"
     },
     "./timestamp": {
-      "types": "./src/timestamp.d.ts",
-      "import": "./src/timestamp.js"
+      "types": "./dist/timestamp.d.ts",
+      "import": "./dist/timestamp.js",
+      "default": "./dist/timestamp.js"
     }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
+    "build": "node scripts/build.mjs",
     "test": "node --test src/*.test.mjs",
     "validate:catalog": "node scripts/validate-catalog.mjs",
-    "prepack": "npm run test && npm run validate:catalog"
+    "prepack": "npm run test && npm run validate:catalog && npm run build"
   }
 }

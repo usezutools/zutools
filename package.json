@@ -6,13 +6,20 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "esbuild": "^0.28.2",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "typescript": "^5.9.3"
   },
   "scripts": {
-    "test": "npm run test --workspaces --if-present",
+    "build": "npm run build --workspace=@zutools/core && npm run build --workspace=@zutools/react",
+    "test": "npm run build && npm run test:packages",
+    "test:packages": "npm run test --workspaces --if-present",
     "validate": "npm run validate:catalog --workspace=@zutools/core",
-    "pack:check": "npm pack --dry-run --workspace=@zutools/core --workspace=@zutools/react"
+    "pack:check": "npm run build && npm pack --dry-run --workspace=@zutools/core --workspace=@zutools/react",
+    "test:tarballs": "node scripts/test-tarballs.mjs"
   }
 }

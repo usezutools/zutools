@@ -3,6 +3,10 @@
 Motores local-first de ZU Tools sin React ni dependencias de ejecución. Puede
 utilizarse desde JavaScript, Angular, React, Web Workers o cualquier bundler ESM.
 
+El paquete publicado contiene ESM compilado, source maps, declaraciones
+TypeScript y el catálogo JSON dentro de `dist/`; los archivos fuente no forman
+parte del tarball.
+
 ```js
 import { csvToObjects, objectsToCsv } from '@zutools/core/csv';
 import { utf8ToBase64 } from '@zutools/core/base64';
@@ -29,6 +33,14 @@ como Canvas, pero siguen siendo independientes del framework.
 | `@zutools/core/image` | carga, Canvas y generación de Blob |
 | `@zutools/core/image-metadata` | lectura local de EXIF/PNG/WebP |
 | `@zutools/core/catalog` | catálogo, selectores y validación |
+| `@zutools/core/catalog.json` | catálogo JSON sin ejecutar JavaScript |
+
+## Desarrollo
+
+```bash
+npm run build --workspace=@zutools/core
+npm run test --workspace=@zutools/core
+```
 
 ## Licencia
 
