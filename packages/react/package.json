@@ -1,0 +1,39 @@
+{
+  "name": "@zutools/react",
+  "version": "0.1.0",
+  "description": "Local-first browser tools and an embeddable React catalogue for ZU Tools.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "tools",
+    "!tools/**/*.test.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./tools/index.js",
+    "./free": "./tools/free.js",
+    "./catalog": "./tools/catalog.js",
+    "./implementations": "./tools/implementations/index.js",
+    "./styles.css": "./tools/tools.css",
+    "./workspace.css": "./tools/implementations/implementations.css"
+  },
+  "dependencies": {
+    "@zutools/core": "0.1.0"
+  },
+  "peerDependencies": {
+    "lucide-react": ">=0.400.0",
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node -e \"import('@zutools/core').then(() => console.log('Core dependency resolved'))\"",
+    "prepack": "npm test"
+  }
+}

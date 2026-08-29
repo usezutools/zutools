@@ -1,0 +1,63 @@
+{
+  "name": "@zutools/core",
+  "version": "0.1.0",
+  "description": "Framework-agnostic local-first engines and catalogue for ZU Tools.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "files": [
+    "src",
+    "!src/**/*.test.mjs",
+    "catalog",
+    "README.md",
+    "LICENSE"
+  ],
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    },
+    "./base64": {
+      "types": "./src/base64.d.ts",
+      "import": "./src/base64.js"
+    },
+    "./catalog": {
+      "types": "./src/catalog.d.ts",
+      "import": "./src/catalog.js"
+    },
+    "./catalog.json": "./catalog/tools.json",
+    "./csv": {
+      "types": "./src/csv.d.ts",
+      "import": "./src/csv.js"
+    },
+    "./image": {
+      "types": "./src/image.d.ts",
+      "import": "./src/image.js"
+    },
+    "./image-metadata": {
+      "types": "./src/image-metadata.d.ts",
+      "import": "./src/image-metadata.js"
+    },
+    "./json": {
+      "types": "./src/json.d.ts",
+      "import": "./src/json.js"
+    },
+    "./text": {
+      "types": "./src/text.d.ts",
+      "import": "./src/text.js"
+    },
+    "./timestamp": {
+      "types": "./src/timestamp.d.ts",
+      "import": "./src/timestamp.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node --test src/*.test.mjs",
+    "validate:catalog": "node scripts/validate-catalog.mjs",
+    "prepack": "npm run test && npm run validate:catalog"
+  }
+}

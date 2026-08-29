@@ -1,0 +1,18 @@
+{
+  "name": "@zutools/workspace",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "validate": "npm run validate:catalog --workspace=@zutools/core",
+    "pack:check": "npm pack --dry-run --workspace=@zutools/core --workspace=@zutools/react"
+  }
+}

@@ -1,0 +1,3 @@
+tools/**/*.test.mjs
+scripts/
+*.tgz

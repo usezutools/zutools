@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 2,
+  "implementationScope": {
+    "phase": "free",
+    "principle": "Los archivos y datos se procesan íntegramente en el navegador y no se suben a ningún servidor.",
+    "includedExecutions": ["local", "local-with-library"],
+    "activeToolCount": 10
+  },
+  "categories": [
+    { "id": "image-editing", "name": "Edición y conversión de imágenes", "order": 20 },
+    { "id": "data", "name": "Datos y codificación", "order": 40 },
+    { "id": "text", "name": "Escritura y texto", "order": 50 },
+    { "id": "content-privacy", "name": "Contenido y privacidad", "order": 130 }
+  ],
+  "tools": [
+    {
+      "id": "resize-image",
+      "name": "Redimensionar imagen",
+      "category": "image-editing",
+      "description": "Cambiar las dimensiones de una imagen manteniendo opcionalmente su relación de aspecto.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "webp-to-png",
+      "name": "WebP a PNG o JPG",
+      "category": "image-editing",
+      "description": "Convertir imágenes WebP a PNG o JPG.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "png-to-jpg",
+      "name": "PNG a JPG",
+      "category": "image-editing",
+      "description": "Convertir PNG a JPG eligiendo el fondo para transparencias.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "jpg-to-png",
+      "name": "JPG a PNG",
+      "category": "image-editing",
+      "description": "Convertir imágenes JPG a PNG.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "json-formatter",
+      "name": "Formatear y validar JSON",
+      "category": "data",
+      "description": "Formatear, validar y minificar documentos JSON.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "json-to-csv",
+      "name": "JSON a CSV y CSV a JSON",
+      "category": "data",
+      "description": "Convertir datos tabulares entre JSON y CSV.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "base64",
+      "name": "Base64",
+      "category": "data",
+      "description": "Codificar y decodificar texto o archivos en Base64.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "unix-timestamp",
+      "name": "Conversor Unix timestamp",
+      "category": "data",
+      "description": "Convertir timestamps en segundos o milisegundos a fechas legibles y viceversa.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "case-converter",
+      "name": "Conversor de mayúsculas y estilos",
+      "category": "text",
+      "description": "Transformar texto entre mayúsculas, título, camelCase, snake_case y kebab-case.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "image-metadata-remover",
+      "name": "Eliminador de metadatos de imágenes",
+      "category": "content-privacy",
+      "description": "Eliminar EXIF, coordenadas GPS, dispositivo y fecha de fotografías antes de compartirlas.",
+      "execution": "local",
+      "status": "implemented"
+    }
+  ]
+}
