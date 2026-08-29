@@ -9,6 +9,7 @@ await build({
     free: 'tools/free.js',
     catalog: 'tools/catalog.js',
     implementations: 'tools/implementations/index.js',
+    'word-counter': 'tools/word-counter.js',
   },
   outdir: 'dist',
   entryNames: '[name]',

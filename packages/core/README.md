@@ -11,6 +11,7 @@ parte del tarball.
 import { csvToObjects, objectsToCsv } from '@zutools/core/csv';
 import { utf8ToBase64 } from '@zutools/core/base64';
 import { timestampToDate } from '@zutools/core/timestamp';
+import { analyzeText } from '@zutools/core/word-counter';
 ```
 
 También se pueden importar todas las funciones desde `@zutools/core`, pero las
@@ -34,6 +35,7 @@ como Canvas, pero siguen siendo independientes del framework.
 | `@zutools/core/image-metadata` | lectura local de EXIF/PNG/WebP |
 | `@zutools/core/catalog` | catálogo, selectores y validación |
 | `@zutools/core/catalog.json` | catálogo JSON sin ejecutar JavaScript |
+| `@zutools/core/word-counter` | palabras, grafemas, frases, párrafos y tiempo de lectura |
 
 ## Desarrollo
 

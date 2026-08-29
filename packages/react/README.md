@@ -36,6 +36,19 @@ publica JavaScript compilado, declaraciones TypeScript y CSS desde `dist/`.
 `workspace.css` está disponible para consumidores que importen únicamente las
 implementaciones.
 
+## Herramienta individual
+
+Para utilizar solamente el contador sin cargar el portal ni el registro Free:
+
+```jsx
+import { WordCounter } from '@zutools/react/word-counter';
+import '@zutools/react/word-counter.css';
+
+export function TextMetrics() {
+  return <WordCounter language="es" />;
+}
+```
+
 ## Desarrollo
 
 Desde la raíz:
@@ -46,6 +59,7 @@ npm run build
 npm run validate
 npm run pack:check
 npm run test:tarballs
+npm run measure:tree-shaking
 ```
 
 ## Licencia

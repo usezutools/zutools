@@ -1,3 +1,5 @@
+import { countWords as countLocalizedWords } from './word-counter.js';
+
 export function wordsFrom(value) {
   return value
     .replace(/([a-záéíóúüñ0-9])([A-ZÁÉÍÓÚÜÑ])/g, '$1 $2')
@@ -48,6 +50,6 @@ export function transformText(value, type, locale = 'es') {
   return value;
 }
 
-export function countWords(value) {
-  return value.trim() ? value.trim().split(/\s+/).length : 0;
+export function countWords(value, locale = 'es') {
+  return countLocalizedWords(value, locale);
 }

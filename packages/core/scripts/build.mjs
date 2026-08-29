@@ -14,6 +14,7 @@ await build({
     json: 'src/json.js',
     text: 'src/text.js',
     timestamp: 'src/timestamp.js',
+    'word-counter': 'src/word-counter.js',
   },
   outdir: 'dist',
   bundle: true,

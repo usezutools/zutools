@@ -1,0 +1,78 @@
+.mini-tool {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+}
+
+.mini-tool input:focus-visible,
+.mini-tool select:focus-visible,
+.mini-tool textarea:focus-visible {
+  outline: 3px solid rgba(255, 211, 38, 0.72);
+  outline-offset: 2px;
+}
+
+.mini-field {
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mini-field.compact { min-width: 130px; width: max-content; }
+
+.mini-field > span {
+  color: #777772;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mini-field select {
+  height: 42px;
+  padding: 0 11px;
+  border: 1px solid #d7d7d2;
+  border-radius: 10px;
+  outline: 0;
+  background: #fff;
+  color: #242420;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.mini-editor {
+  min-width: 0;
+  min-height: 390px;
+  border: 1px solid #dcdcd7;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+}
+
+.mini-editor > span {
+  min-height: 40px;
+  padding: 0 14px;
+  border-bottom: 1px solid #e7e7e3;
+  display: flex;
+  align-items: center;
+  color: #73736e;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mini-editor textarea {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  padding: 16px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #252521;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+}

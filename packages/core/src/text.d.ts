@@ -14,4 +14,4 @@ export function transformText(
   type: TextTransformation,
   locale?: string
 ): string;
-export function countWords(value: string): number;
+export function countWords(value: string, locale?: string | string[]): number;

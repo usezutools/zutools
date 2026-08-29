@@ -22,11 +22,14 @@ npm test
 npm run validate
 npm run pack:check
 npm run test:tarballs
+npm run measure:tree-shaking
 ```
 
 Los paquetes son ESM y publican exclusivamente archivos compilados desde
 `dist/`. `npm run test:tarballs` instala los artefactos en consumidores
 temporales independientes para comprobar JavaScript, React, CSS y TypeScript.
+La medición de tree-shaking compara exports individuales con el portal completo
+usando los tarballs reales.
 
 ## Uso provisional
 

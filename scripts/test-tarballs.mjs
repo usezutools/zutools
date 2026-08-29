@@ -72,12 +72,14 @@ try {
       import { csvToObjects } from '@zutools/core/csv';
       import { formatJson } from '@zutools/core/json';
       import { toolsCatalog } from '@zutools/core/catalog';
+      import { analyzeText } from '@zutools/core/word-counter';
       import catalogJson from '@zutools/core/catalog.json' with { type: 'json' };
 
       assert.equal(utf8ToBase64('ZU Tools'), 'WlUgVG9vbHM=');
       assert.deepEqual(csvToObjects('name,value\\nalpha,1'), [{ name: 'alpha', value: '1' }]);
       assert.equal(formatJson('{"ready":true}'), '{\\n  "ready": true\\n}');
-      assert.equal(toolsCatalog.tools.length, 10);
+      assert.equal(analyzeText('Hello brave world.').words, 3);
+      assert.equal(toolsCatalog.tools.length, 11);
       assert.equal(catalogJson.tools.length, toolsCatalog.tools.length);
       console.log('Vanilla consumer passed');
     `,
@@ -112,6 +114,7 @@ try {
       import React from 'react';
       import { renderToStaticMarkup } from 'react-dom/server';
       import ToolsPortal, { freeToolsCatalog, freeToolRegistry } from '@zutools/react/free';
+      import { WordCounter } from '@zutools/react/word-counter';
 
       const markup = renderToStaticMarkup(
         React.createElement(ToolsPortal, {
@@ -121,8 +124,10 @@ try {
         })
       );
       assert.match(markup, /ZU Tools Free/);
+      assert.match(renderToStaticMarkup(React.createElement(WordCounter)), /textarea/);
       assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/styles.css'))));
       assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/workspace.css'))));
+      assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/word-counter.css'))));
       console.log('React runtime consumer passed');
     `,
     'consumer.tsx': `
@@ -131,7 +136,9 @@ try {
         freeToolsCatalog,
         freeToolRegistry,
       } from '@zutools/react/free';
+      import { WordCounter } from '@zutools/react/word-counter';
       import '@zutools/react/styles.css';
+      import '@zutools/react/word-counter.css';
 
       export const view = (
         <ToolsPortal
@@ -140,6 +147,8 @@ try {
           registry={freeToolRegistry}
         />
       );
+
+      export const isolatedTool = <WordCounter language="es" />;
     `,
     'tsconfig.json': `${JSON.stringify(
       {

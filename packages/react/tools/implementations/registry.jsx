@@ -1,12 +1,14 @@
 import { Base64Tool, CaseConverter, JsonCsvConverter, JsonFormatter } from './DataTools';
 import { ImageConverter, MetadataRemover, ResizeImage } from './ImageTools';
 import TimestampTool from './TimestampTool';
+import WordCounter from './WordCounter';
 
 const implementations = {
   'json-formatter': JsonFormatter,
   'json-to-csv': JsonCsvConverter,
   base64: Base64Tool,
   'case-converter': CaseConverter,
+  'word-counter': WordCounter,
   'unix-timestamp': TimestampTool,
   'webp-to-png': ImageConverter,
   'png-to-jpg': ImageConverter,

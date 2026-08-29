@@ -1,0 +1,32 @@
+{
+  "coreWordCounter": {
+    "javascript": {
+      "bytes": 1411,
+      "gzipBytes": 708
+    },
+    "css": {
+      "bytes": 0,
+      "gzipBytes": 0
+    }
+  },
+  "reactWordCounter": {
+    "javascript": {
+      "bytes": 2492,
+      "gzipBytes": 1100
+    },
+    "css": {
+      "bytes": 2467,
+      "gzipBytes": 885
+    }
+  },
+  "reactFreePortal": {
+    "javascript": {
+      "bytes": 45377,
+      "gzipBytes": 14300
+    },
+    "css": {
+      "bytes": 24965,
+      "gzipBytes": 5607
+    }
+  }
+}

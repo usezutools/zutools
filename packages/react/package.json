@@ -37,7 +37,13 @@
       "default": "./dist/implementations.js"
     },
     "./styles.css": "./dist/index.css",
-    "./workspace.css": "./dist/implementations.css"
+    "./workspace.css": "./dist/implementations.css",
+    "./word-counter": {
+      "types": "./dist/word-counter.d.ts",
+      "import": "./dist/word-counter.js",
+      "default": "./dist/word-counter.js"
+    },
+    "./word-counter.css": "./dist/word-counter.css"
   },
   "dependencies": {
     "@zutools/core": "0.1.0"

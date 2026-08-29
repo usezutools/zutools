@@ -4,7 +4,7 @@
     "phase": "free",
     "principle": "Los archivos y datos se procesan íntegramente en el navegador y no se suben a ningún servidor.",
     "includedExecutions": ["local", "local-with-library"],
-    "activeToolCount": 10
+    "activeToolCount": 11
   },
   "categories": [
     { "id": "image-editing", "name": "Edición y conversión de imágenes", "order": 20 },
@@ -82,6 +82,14 @@
       "name": "Conversor de mayúsculas y estilos",
       "category": "text",
       "description": "Transformar texto entre mayúsculas, título, camelCase, snake_case y kebab-case.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "word-counter",
+      "name": "Contador de palabras",
+      "category": "text",
+      "description": "Contar palabras, caracteres, frases, párrafos y tiempo estimado de lectura.",
       "execution": "local",
       "status": "implemented"
     },

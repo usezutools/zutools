@@ -59,6 +59,11 @@
       "types": "./dist/timestamp.d.ts",
       "import": "./dist/timestamp.js",
       "default": "./dist/timestamp.js"
+    },
+    "./word-counter": {
+      "types": "./dist/word-counter.d.ts",
+      "import": "./dist/word-counter.js",
+      "default": "./dist/word-counter.js"
     }
   },
   "publishConfig": {

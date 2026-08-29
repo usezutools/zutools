@@ -1,0 +1,21 @@
+.word-counter { display: grid; gap: 18px; }
+.word-counter-toolbar { display: flex; justify-content: flex-end; }
+.word-counter-toolbar .mini-field { min-width: 210px; }
+.word-counter-editor textarea { min-height: 260px; line-height: 1.65; resize: vertical; }
+.word-counter-metrics { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.word-counter-metric { min-width: 0; padding: 15px; border: 1px solid #e2e2dc; border-radius: 13px; display: flex; align-items: flex-start; gap: 10px; background: #fff; }
+.word-counter-metric-icon { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 9px; display: grid; place-items: center; background: #fff6cc; color: #6f5900; }
+.word-counter-metric > span:last-child { min-width: 0; display: flex; flex-direction: column; }
+.word-counter-metric small { color: #777772; font-size: 10px; font-style: normal; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; }
+.word-counter-metric strong { margin-top: 3px; overflow: hidden; font-size: 24px; line-height: 1.1; text-overflow: ellipsis; }
+.word-counter-metric em { margin-top: 3px; color: #8a8a84; font-size: 10px; font-style: normal; }
+
+@media (max-width: 900px) {
+  .word-counter-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .word-counter-toolbar { justify-content: stretch; }
+  .word-counter-toolbar .mini-field { width: 100%; }
+  .word-counter-metrics { grid-template-columns: 1fr; }
+}

@@ -6,3 +6,11 @@ export * from './image-metadata.js';
 export * from './json.js';
 export * from './text.js';
 export * from './timestamp.js';
+export {
+  analyzeText,
+  countCharacters,
+  countParagraphs,
+  countSentences,
+  DEFAULT_WORDS_PER_MINUTE,
+  segmentWords,
+} from './word-counter.js';
