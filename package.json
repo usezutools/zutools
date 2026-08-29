@@ -22,6 +22,10 @@
     "pack:check": "npm run build && npm pack --dry-run --workspace=@zutools/core --workspace=@zutools/react",
     "measure:tree-shaking": "npm run build && node scripts/measure-tree-shaking.mjs --check",
     "measure:tree-shaking:update": "npm run build && node scripts/measure-tree-shaking.mjs --write",
-    "test:tarballs": "node scripts/test-tarballs.mjs"
+    "test:tarballs": "node scripts/test-tarballs.mjs",
+    "examples:prepare": "npm run build && node scripts/prepare-examples.mjs",
+    "examples:test": "npm run examples:prepare && npm run build --prefix examples/vanilla && npm run build --prefix examples/react",
+    "example:vanilla": "npm run examples:prepare && npm run dev --prefix examples/vanilla",
+    "example:react": "npm run examples:prepare && npm run dev --prefix examples/react"
   }
 }

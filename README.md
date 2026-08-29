@@ -161,6 +161,26 @@ export class EditorStatsComponent {
 This pattern also applies to Vue, Svelte, Solid and other frameworks: keep the
 engine in `@zutools/core` and build the UI with the framework you already use.
 
+## Run the examples
+
+The repository includes two permanent Vite applications. Both install freshly
+generated package tarballs, so they exercise the same files that npm users will
+receive rather than importing monorepo source code.
+
+```bash
+# Vanilla JavaScript: Word Counter, JSON and Base64
+npm run example:vanilla
+
+# React: isolated tool and complete catalogue
+npm run example:react
+
+# Build both examples without starting a server
+npm run examples:test
+```
+
+Explore [`examples/vanilla`](examples/vanilla) and
+[`examples/react`](examples/react) for complete, copyable projects.
+
 ## Available tools
 
 The Free catalogue currently contains 11 working browser tools:
@@ -383,6 +403,7 @@ npm test                       # Build and run package tests
 npm run validate               # Validate catalogue references
 npm run pack:check             # Inspect publishable package contents
 npm run test:tarballs          # Install tarballs in external test projects
+npm run examples:test          # Build the permanent Vanilla and React examples
 npm run measure:tree-shaking   # Enforce the committed bundle limits
 ```
 
@@ -405,6 +426,7 @@ and GitHub Actions weekly; normal major upgrades are deliberately excluded.
 | Compiled React import | `packages/react/package.json` | Public compiled modules resolve correctly |
 | Catalogue validation | `packages/core/scripts/validate-catalog.mjs` | IDs and categories remain coherent |
 | Tarball consumers | `scripts/test-tarballs.mjs` | JavaScript, React, CSS and strict TypeScript usage |
+| Runnable examples | `examples/vanilla`, `examples/react` | Copyable integrations built from package tarballs |
 | Bundle measurement | `scripts/measure-tree-shaking.mjs` | Individual imports stay smaller than the portal |
 
 ## Package documentation

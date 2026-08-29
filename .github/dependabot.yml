@@ -2,7 +2,10 @@ version: 2
 
 updates:
   - package-ecosystem: npm
-    directory: /
+    directories:
+      - /
+      - /examples/vanilla
+      - /examples/react
     schedule:
       interval: weekly
       day: monday

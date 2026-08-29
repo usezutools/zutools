@@ -1,0 +1,45 @@
+import {
+  ToolsPortal,
+  freeToolsCatalog,
+  freeToolRegistry,
+} from '@zutools/react/free';
+import '@zutools/react/styles.css';
+
+export default function CatalogueExample({
+  copy,
+  language,
+  lastEvent,
+  onEvent,
+  onOpenWordCounter,
+  request,
+}) {
+  return (
+    <section className="example-catalogue">
+      <div className="example-integration-bar">
+        <div>
+          <code>@zutools/react/free</code>
+          <small>
+            {copy.event}: {lastEvent || copy.waiting}
+          </small>
+        </div>
+        <button type="button" onClick={onOpenWordCounter}>
+          {copy.openCounter}
+        </button>
+      </div>
+
+      <ToolsPortal
+        key={request.version}
+        className="example-themed-portal"
+        language={language}
+        catalog={freeToolsCatalog}
+        registry={freeToolRegistry}
+        requestedToolId={request.id}
+        brandLabel="ZU Tools · React example"
+        onToolOpen={(tool, state) =>
+          onEvent(`open:${tool.id}:${state.implemented}`)
+        }
+        onToolClose={(tool) => onEvent(`close:${tool?.id || 'tool'}`)}
+      />
+    </section>
+  );
+}

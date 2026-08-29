@@ -65,6 +65,9 @@ jobs:
       - name: Test installed tarballs
         run: npm run test:tarballs
 
+      - name: Build runnable examples from tarballs
+        run: npm run examples:test
+
       - name: Enforce tree-shaking limits
         run: npm run measure:tree-shaking
 

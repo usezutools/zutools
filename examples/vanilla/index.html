@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Vanilla JavaScript example consuming @zutools/core tarballs."
+    />
+    <title>ZU Tools · Vanilla JavaScript example</title>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero">
+        <span class="eyebrow">@zutools/core</span>
+        <h1>Vanilla JavaScript</h1>
+        <p>
+          Three independent engines, no framework, and no data leaving this
+          browser tab.
+        </p>
+        <span class="privacy-badge">Local processing</span>
+      </header>
+
+      <section class="tool-card tool-card-wide" aria-labelledby="counter-title">
+        <div class="tool-heading">
+          <div>
+            <span class="tool-number">01</span>
+            <h2 id="counter-title">Word Counter</h2>
+          </div>
+          <code>@zutools/core/word-counter</code>
+        </div>
+        <label for="text-input">Text to analyse</label>
+        <textarea id="text-input" rows="8">ZU Tools processes your files and text locally. Nothing is uploaded.</textarea>
+        <div class="metrics" aria-live="polite">
+          <div><strong id="words">0</strong><span>Words</span></div>
+          <div><strong id="characters">0</strong><span>Characters</span></div>
+          <div><strong id="sentences">0</strong><span>Sentences</span></div>
+          <div><strong id="reading-time">0 sec</strong><span>Reading time</span></div>
+        </div>
+      </section>
+
+      <div class="tool-grid">
+        <section class="tool-card" aria-labelledby="json-title">
+          <div class="tool-heading">
+            <div>
+              <span class="tool-number">02</span>
+              <h2 id="json-title">JSON Formatter</h2>
+            </div>
+          </div>
+          <label for="json-input">JSON</label>
+          <textarea id="json-input" rows="7">{"project":"ZU Tools","local":true}</textarea>
+          <button id="format-json" type="button">Format JSON</button>
+          <p id="json-message" class="message" aria-live="polite"></p>
+        </section>
+
+        <section class="tool-card" aria-labelledby="base64-title">
+          <div class="tool-heading">
+            <div>
+              <span class="tool-number">03</span>
+              <h2 id="base64-title">Base64</h2>
+            </div>
+          </div>
+          <label for="base64-input">Plain text or Base64</label>
+          <textarea id="base64-input" rows="7">Hello from ZU Tools 👋</textarea>
+          <div class="button-row">
+            <button id="encode-base64" type="button">Encode</button>
+            <button id="decode-base64" class="secondary" type="button">Decode</button>
+          </div>
+          <p id="base64-message" class="message" aria-live="polite"></p>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

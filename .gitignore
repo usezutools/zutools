@@ -5,6 +5,7 @@ node_modules/
 coverage/
 .nyc_output/
 *.tgz
+/artifacts/
 *.log
 .env
 .env.*
