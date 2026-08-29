@@ -34,7 +34,7 @@ catalogue to an existing application.
 |---|---|---|
 | Use logic from JavaScript, TypeScript, Angular, Vue, Svelte or a Web Worker | `@zutools/core` | `@zutools/core/<capability>` |
 | Render one ready-made React tool | `@zutools/core`, `@zutools/react` | `@zutools/react/<tool>` |
-| Embed the complete React catalogue | `@zutools/core`, `@zutools/react` | `@zutools/react/free` |
+| Embed the complete React catalogue | `@zutools/core`, `@zutools/react` | `@zutools/react/portal` |
 | Read the catalogue without running JavaScript | `@zutools/core` | `@zutools/core/catalog.json` |
 
 The recommended approach is the narrowest import that meets your needs. It
@@ -90,23 +90,23 @@ gzip of CSS**, excluding peer dependencies.
 
 ### React: complete catalogue
 
-Use the Free entry when you want the searchable catalogue and all registered
+Use the portal entry when you want the searchable catalogue and all registered
 tool interfaces:
 
 ```jsx
 import {
   ToolsPortal,
-  freeToolsCatalog,
-  freeToolRegistry,
-} from '@zutools/react/free';
+  portalCatalog,
+  portalRegistry,
+} from '@zutools/react/portal';
 import '@zutools/react/styles.css';
 
 export default function ToolsPage() {
   return (
     <ToolsPortal
       language="en"
-      catalog={freeToolsCatalog}
-      registry={freeToolRegistry}
+      catalog={portalCatalog}
+      registry={portalRegistry}
     />
   );
 }
@@ -183,7 +183,7 @@ Explore [`examples/vanilla`](examples/vanilla) and
 
 ## Available tools
 
-The Free catalogue currently contains 11 working browser tools:
+The catalogue currently contains 11 working browser tools:
 
 | Area | Tools |
 |---|---|
@@ -194,7 +194,7 @@ The Free catalogue currently contains 11 working browser tools:
 
 The executable source of truth is
 [`packages/core/catalog/tools.json`](packages/core/catalog/tools.json). A tool
-is only included in the Free catalogue after its engine, interface and tests
+is only included in the public catalogue after its engine, interface and tests
 exist.
 
 ## Core API
@@ -267,7 +267,7 @@ const { seconds, milliseconds } = dateToUnix(date);
 | `catalog` | Complete catalogue | Catalogue to display |
 | `registry` | Default registry | Maps tool IDs to React implementations |
 | `featuredToolIds` | Built-in selection | Controls the featured tools section |
-| `brandLabel` | `"ZU Tools Free"` | Label displayed above featured tools |
+| `brandLabel` | `"ZU Tools"` | Label displayed above featured tools |
 | `className` | `""` | Adds a class to the portal root |
 | `requestedToolId` | `null` | Opens a tool from external application state |
 | `onToolOpen` | — | Receives `(tool, { implemented })` |
@@ -353,7 +353,7 @@ externalized consistently so the comparison measures ZU Tools code only.
 |---|---:|---:|
 | `@zutools/core/word-counter` | 708 B | — |
 | `@zutools/react/word-counter` | 1.1 kB | 885 B |
-| Complete React Free portal | 14.3 kB | 5.6 kB |
+| Complete React portal | 14.3 kB | 5.6 kB |
 
 CI fails when a measured bundle grows beyond the committed tolerance. See
 [`benchmarks/README.md`](benchmarks/README.md) for the update procedure.

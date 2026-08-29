@@ -44,10 +44,10 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./free": {
-      "types": "./dist/free.d.ts",
-      "import": "./dist/free.js",
-      "default": "./dist/free.js"
+    "./portal": {
+      "types": "./dist/portal.d.ts",
+      "import": "./dist/portal.js",
+      "default": "./dist/portal.js"
     },
     "./catalog": {
       "types": "./dist/catalog.d.ts",

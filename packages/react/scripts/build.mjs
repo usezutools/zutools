@@ -6,7 +6,7 @@ await rm('dist', { recursive: true, force: true });
 await build({
   entryPoints: {
     index: 'tools/index.js',
-    free: 'tools/free.js',
+    portal: 'tools/portal.js',
     catalog: 'tools/catalog.js',
     implementations: 'tools/implementations/index.js',
     'word-counter': 'tools/word-counter.js',
@@ -32,10 +32,10 @@ await build({
   ],
 });
 
-// `free` shares the complete UI with the root entry. Consumers use the single
+// `portal` shares the complete UI with the root entry. Consumers use the single
 // exported stylesheet, so keeping a duplicate extracted CSS file only inflates
 // the npm tarball.
 await Promise.all([
-  rm('dist/free.css', { force: true }),
-  rm('dist/free.css.map', { force: true }),
+  rm('dist/portal.css', { force: true }),
+  rm('dist/portal.css.map', { force: true }),
 ]);

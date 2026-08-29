@@ -12,7 +12,7 @@ npm run measure:tree-shaking
 ```
 
 The command fails if the individual Word Counter JavaScript or CSS stops being
-smaller than the complete Free portal, or if any measured gzip bundle grows by
+smaller than the complete portal, or if any measured gzip bundle grows by
 more than 5% plus a 64-byte tolerance.
 
 After reviewing and accepting an intentional size increase, regenerate the

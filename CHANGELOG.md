@@ -12,7 +12,7 @@ All notable changes to ZU Tools are documented in this file. The format follows
 
 - `@zutools/core` with framework-independent Base64, CSV, JSON, text, timestamp,
   image, image metadata and Word Counter engines.
-- `@zutools/react` with the complete Free catalogue and an individual Word
+- `@zutools/react` with the complete catalogue and an individual Word
   Counter entry.
 - Compiled ESM, TypeScript declarations, source maps and separately exported
   CSS.

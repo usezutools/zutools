@@ -150,8 +150,8 @@ try {
     `import '@zutools/react/word-counter.css';\nimport { WordCounter } from '@zutools/react/word-counter';\nconsole.log(WordCounter);\n`
   );
   await writeFile(
-    join(consumerDir, 'react-free.js'),
-    `import '@zutools/react/styles.css';\nimport { ToolsPortal } from '@zutools/react/free';\nconsole.log(ToolsPortal);\n`
+    join(consumerDir, 'react-portal.js'),
+    `import '@zutools/react/styles.css';\nimport { ToolsPortal } from '@zutools/react/portal';\nconsole.log(ToolsPortal);\n`
   );
 
   const reactExternals = [
@@ -165,16 +165,16 @@ try {
   const report = {
     coreWordCounter: await measure('core-word-counter.js'),
     reactWordCounter: await measure('react-word-counter.js', reactExternals),
-    reactFreePortal: await measure('react-free.js', reactExternals),
+    reactPortal: await measure('react-portal.js', reactExternals),
   };
 
   assert.ok(
     report.reactWordCounter.javascript.gzipBytes <
-      report.reactFreePortal.javascript.gzipBytes,
-    'The individual React export must be smaller than the complete Free portal'
+      report.reactPortal.javascript.gzipBytes,
+    'The individual React export must be smaller than the complete portal'
   );
   assert.ok(
-    report.reactWordCounter.css.gzipBytes < report.reactFreePortal.css.gzipBytes,
+    report.reactWordCounter.css.gzipBytes < report.reactPortal.css.gzipBytes,
     'The individual tool CSS must be smaller than the complete portal CSS'
   );
 

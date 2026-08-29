@@ -8,7 +8,7 @@ const COPY = {
     eyebrow: 'Consumer example',
     title: 'ZU Tools inside React',
     intro:
-      'Switch between one tree-shakeable component and the complete Free catalogue.',
+      'Switch between one tree-shakeable component and the complete catalogue.',
     isolated: 'Isolated tool',
     catalogue: 'Complete catalogue',
     openCounter: 'Open Word Counter',
@@ -19,7 +19,7 @@ const COPY = {
     eyebrow: 'Ejemplo consumidor',
     title: 'ZU Tools dentro de React',
     intro:
-      'Cambia entre un componente independiente y el catálogo Free completo.',
+      'Cambia entre un componente independiente y el catálogo completo.',
     isolated: 'Herramienta aislada',
     catalogue: 'Catálogo completo',
     openCounter: 'Abrir Contador de palabras',

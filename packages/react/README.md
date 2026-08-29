@@ -24,7 +24,7 @@ npm install @zutools/core @zutools/react lucide-react
 ## Use one tool
 
 Import the individual component and stylesheet to avoid loading the catalogue
-or the complete Free registry:
+or the complete portal registry:
 
 ```jsx
 import { WordCounter } from '@zutools/react/word-counter';
@@ -35,28 +35,28 @@ export function TextMetrics() {
 }
 ```
 
-## Embed the complete Free catalogue
+## Embed the complete catalogue
 
 ```jsx
 import {
   ToolsPortal,
-  freeToolsCatalog,
-  freeToolRegistry,
-} from '@zutools/react/free';
+  portalCatalog,
+  portalRegistry,
+} from '@zutools/react/portal';
 import '@zutools/react/styles.css';
 
 export function ToolsPage() {
   return (
     <ToolsPortal
       language="en"
-      catalog={freeToolsCatalog}
-      registry={freeToolRegistry}
+      catalog={portalCatalog}
+      registry={portalRegistry}
     />
   );
 }
 ```
 
-`freeToolsCatalog` contains only tools with executable implementations. The
+`portalCatalog` contains only tools with executable implementations. The
 complete source catalogue comes from `@zutools/core/catalog`.
 
 ## Style imports

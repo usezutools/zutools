@@ -113,17 +113,17 @@ try {
       import { fileURLToPath } from 'node:url';
       import React from 'react';
       import { renderToStaticMarkup } from 'react-dom/server';
-      import ToolsPortal, { freeToolsCatalog, freeToolRegistry } from '@zutools/react/free';
+      import ToolsPortal, { portalCatalog, portalRegistry } from '@zutools/react/portal';
       import { WordCounter } from '@zutools/react/word-counter';
 
       const markup = renderToStaticMarkup(
         React.createElement(ToolsPortal, {
-          catalog: freeToolsCatalog,
-          registry: freeToolRegistry,
+          catalog: portalCatalog,
+          registry: portalRegistry,
           language: 'en',
         })
       );
-      assert.match(markup, /ZU Tools Free/);
+      assert.match(markup, /ZU Tools/);
       assert.match(renderToStaticMarkup(React.createElement(WordCounter)), /textarea/);
       assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/styles.css'))));
       assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/workspace.css'))));
@@ -133,9 +133,9 @@ try {
     'consumer.tsx': `
       import React from 'react';
       import ToolsPortal, {
-        freeToolsCatalog,
-        freeToolRegistry,
-      } from '@zutools/react/free';
+        portalCatalog,
+        portalRegistry,
+      } from '@zutools/react/portal';
       import { WordCounter } from '@zutools/react/word-counter';
       import '@zutools/react/styles.css';
       import '@zutools/react/word-counter.css';
@@ -143,8 +143,8 @@ try {
       export const view = (
         <ToolsPortal
           language="en"
-          catalog={freeToolsCatalog}
-          registry={freeToolRegistry}
+          catalog={portalCatalog}
+          registry={portalRegistry}
         />
       );
 

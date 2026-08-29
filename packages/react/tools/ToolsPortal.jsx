@@ -213,7 +213,7 @@ export default function ToolsPortal({
   catalog = toolsCatalog,
   registry = defaultToolRegistry,
   featuredToolIds = FEATURED_IDS,
-  brandLabel = 'ZU Tools Free',
+  brandLabel = 'ZU Tools',
   className = '',
   requestedToolId = null,
   onToolOpen = undefined,

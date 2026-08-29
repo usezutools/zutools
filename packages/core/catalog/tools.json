@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "implementationScope": {
-    "phase": "free",
+    "phase": "implemented",
     "principle": "Los archivos y datos se procesan íntegramente en el navegador y no se suben a ningún servidor.",
     "includedExecutions": ["local", "local-with-library"],
     "activeToolCount": 11

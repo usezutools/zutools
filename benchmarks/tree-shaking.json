@@ -19,7 +19,7 @@
       "gzipBytes": 885
     }
   },
-  "reactFreePortal": {
+  "reactPortal": {
     "javascript": {
       "bytes": 45377,
       "gzipBytes": 14300

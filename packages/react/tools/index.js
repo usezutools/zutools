@@ -14,9 +14,9 @@ export {
   isToolImplemented,
 } from './implementations/registry';
 export {
-  createFreeCatalog,
-  freeToolRegistry,
-  freeToolsCatalog,
-} from './free';
+  createPortalCatalog,
+  portalCatalog,
+  portalRegistry,
+} from './portal';
 export { CategoryIcon, ToolIcon } from './toolIcons';
 export { default as ZuToolsStandalone } from './standalone';

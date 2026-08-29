@@ -1,8 +1,8 @@
 import {
   ToolsPortal,
-  freeToolsCatalog,
-  freeToolRegistry,
-} from '@zutools/react/free';
+  portalCatalog,
+  portalRegistry,
+} from '@zutools/react/portal';
 import '@zutools/react/styles.css';
 
 export default function CatalogueExample({
@@ -17,7 +17,7 @@ export default function CatalogueExample({
     <section className="example-catalogue">
       <div className="example-integration-bar">
         <div>
-          <code>@zutools/react/free</code>
+          <code>@zutools/react/portal</code>
           <small>
             {copy.event}: {lastEvent || copy.waiting}
           </small>
@@ -31,8 +31,8 @@ export default function CatalogueExample({
         key={request.version}
         className="example-themed-portal"
         language={language}
-        catalog={freeToolsCatalog}
-        registry={freeToolRegistry}
+        catalog={portalCatalog}
+        registry={portalRegistry}
         requestedToolId={request.id}
         brandLabel="ZU Tools · React example"
         onToolOpen={(tool, state) =>

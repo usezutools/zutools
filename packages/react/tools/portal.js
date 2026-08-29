@@ -6,24 +6,24 @@ export { ToolsPortal };
 export default ToolsPortal;
 
 /**
- * Creates the public Free catalogue from executable implementations.
+ * Creates the public portal catalogue from executable implementations.
  * Planned entries stay available in `toolsCatalog`, but are not advertised as
  * usable until their implementation is registered.
  */
-export function createFreeCatalog(
+export function createPortalCatalog(
   catalog = toolsCatalog,
   registry = defaultToolRegistry
 ) {
   const tools = getActiveTools(catalog)
     .filter((tool) => registry.has(tool.id))
-    .map((tool) => Object.freeze({ ...tool, tier: 'free' }));
+    .map((tool) => Object.freeze({ ...tool }));
   const categoryIds = new Set(tools.map((tool) => tool.category));
 
   return Object.freeze({
     ...catalog,
     implementationScope: Object.freeze({
       ...catalog.implementationScope,
-      phase: 'free',
+      phase: 'implemented',
       activeToolCount: tools.length,
       deferredToolCount: 0,
     }),
@@ -36,5 +36,5 @@ export function createFreeCatalog(
   });
 }
 
-export const freeToolRegistry = defaultToolRegistry;
-export const freeToolsCatalog = createFreeCatalog();
+export const portalRegistry = defaultToolRegistry;
+export const portalCatalog = createPortalCatalog();
