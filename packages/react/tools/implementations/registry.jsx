@@ -2,8 +2,12 @@ import { Base64Tool, CaseConverter, JsonCsvConverter, JsonFormatter } from './Da
 import { ImageConverter, MetadataRemover, ResizeImage } from './ImageTools';
 import TimestampTool from './TimestampTool';
 import WordCounter from './WordCounter';
+import { MergePdf, OrganizePdf, SplitPdf } from './PdfTools';
 
 const implementations = {
+  'merge-pdf': MergePdf,
+  'organize-pdf': OrganizePdf,
+  'split-pdf': SplitPdf,
   'json-formatter': JsonFormatter,
   'json-to-csv': JsonCsvConverter,
   base64: Base64Tool,

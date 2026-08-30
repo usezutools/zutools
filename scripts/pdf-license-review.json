@@ -1,0 +1,47 @@
+{
+  "review": "packages/core/PDF_SUPPORT.md: reviewed dependency notices; any version, license or source change requires review",
+  "packages": [
+    {
+      "package": "pako",
+      "version": "1.0.11",
+      "license": "(MIT AND Zlib)",
+      "files": {
+        "LICENSE": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539",
+        "lib/zlib/deflate.js": "4b9b71ae7f42e506fe1fb134f1c21b944ef2b7ef79667ba1fe59eb963c353d22"
+      }
+    },
+    {
+      "package": "lru-cache",
+      "version": "11.5.2",
+      "license": "BlueOak-1.0.0",
+      "files": {
+        "LICENSE.md": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+      }
+    },
+    {
+      "package": "pako",
+      "version": "2.2.0",
+      "license": "(MIT AND Zlib)",
+      "files": {
+        "LICENSE": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539",
+        "lib/zlib/deflate.js": "54a36e5377a62ce36f4b5a2307f7e55962cc036d7dbc4a355f702f9de069e012"
+      }
+    },
+    {
+      "package": "tslib",
+      "version": "1.14.1",
+      "license": "0BSD",
+      "files": {
+        "LICENSE.txt": "210b19e543130388c68654b7497e967119ce17145f66ab7d85688fbd70f08751"
+      }
+    },
+    {
+      "package": "tslib",
+      "version": "2.8.1",
+      "license": "0BSD",
+      "files": {
+        "LICENSE.txt": "210b19e543130388c68654b7497e967119ce17145f66ab7d85688fbd70f08751"
+      }
+    }
+  ]
+}

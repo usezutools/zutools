@@ -67,3 +67,8 @@ development workflow.
 ## License
 
 [MIT](LICENSE).
+
+## PDF beta
+
+Import `createPdfToolsClient` from `@zutools/core/pdf`. The PDF worker is separate
+from the main bundle, runs locally and verifies results before returning them.

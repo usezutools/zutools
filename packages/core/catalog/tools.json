@@ -3,14 +3,37 @@
   "implementationScope": {
     "phase": "implemented",
     "principle": "Los archivos y datos se procesan íntegramente en el navegador y no se suben a ningún servidor.",
-    "includedExecutions": ["local", "local-with-library"],
-    "activeToolCount": 11
+    "includedExecutions": [
+      "local"
+    ],
+    "activeToolCount": 14
   },
   "categories": [
-    { "id": "image-editing", "name": "Edición y conversión de imágenes", "order": 20 },
-    { "id": "data", "name": "Datos y codificación", "order": 40 },
-    { "id": "text", "name": "Escritura y texto", "order": 50 },
-    { "id": "content-privacy", "name": "Contenido y privacidad", "order": 130 }
+    {
+      "id": "pdf",
+      "name": "Documentos PDF",
+      "order": 10
+    },
+    {
+      "id": "image-editing",
+      "name": "Edición y conversión de imágenes",
+      "order": 20
+    },
+    {
+      "id": "data",
+      "name": "Datos y codificación",
+      "order": 40
+    },
+    {
+      "id": "text",
+      "name": "Escritura y texto",
+      "order": 50
+    },
+    {
+      "id": "content-privacy",
+      "name": "Contenido y privacidad",
+      "order": 130
+    }
   ],
   "tools": [
     {
@@ -100,6 +123,36 @@
       "description": "Eliminar EXIF, coordenadas GPS, dispositivo y fecha de fotografías antes de compartirlas.",
       "execution": "local",
       "status": "implemented"
+    },
+    {
+      "id": "merge-pdf",
+      "name": "Unir PDF",
+      "category": "pdf",
+      "description": "Unir PDF compatibles en orden manual. Free elimina metadatos documentales Info/XMP.",
+      "execution": "local",
+      "status": "implemented",
+      "maturity": "beta",
+      "edition": "Free"
+    },
+    {
+      "id": "organize-pdf",
+      "name": "Organizar PDF",
+      "category": "pdf",
+      "description": "Reordenar, extraer, excluir, duplicar y girar páginas con comprobación de conservación.",
+      "execution": "local",
+      "status": "implemented",
+      "maturity": "beta",
+      "edition": "Free"
+    },
+    {
+      "id": "split-pdf",
+      "name": "Dividir PDF",
+      "category": "pdf",
+      "description": "Separar PDF por páginas o rangos y descargar los resultados en ZIP.",
+      "execution": "local",
+      "status": "implemented",
+      "maturity": "beta",
+      "edition": "Free"
     }
   ]
 }

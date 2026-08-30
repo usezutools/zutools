@@ -20,10 +20,15 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@libpdf/core": "0.4.1",
+    "@playwright/test": "1.62.1",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "esbuild": "^0.28.2",
+    "fflate": "0.8.2",
     "lucide-react": "^0.468.0",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "6.3.289",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.9.3"
@@ -42,7 +47,9 @@
     "example:vanilla": "npm run examples:prepare && npm run dev --prefix examples/vanilla",
     "example:react": "npm run examples:prepare && npm run dev --prefix examples/react",
     "licenses:check": "node scripts/check-licenses.mjs",
-    "release:check": "node scripts/check-release.mjs",
-    "publish:dry-run": "npm run release:check && npm publish --dry-run --workspace=@zutools/core && npm publish --dry-run --workspace=@zutools/react"
+    "public-boundary:check": "node scripts/check-public-boundary.mjs",
+    "release:check": "npm run public-boundary:check && node scripts/check-release.mjs",
+    "publish:dry-run": "npm run release:check && npm publish --dry-run --workspace=@zutools/core && npm publish --dry-run --workspace=@zutools/react",
+    "test:pdf:browser": "playwright test --config playwright.pdf.config.mjs"
   }
 }

@@ -12,8 +12,9 @@ const workspaceRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const temporaryRoot = await mkdtemp(join(tmpdir(), 'zutools-tree-shaking-'));
 const artifactsDir = join(temporaryRoot, 'artifacts');
 const consumerDir = join(temporaryRoot, 'consumer');
-const coreTarball = join(artifactsDir, 'zutools-core-0.1.0.tgz');
-const reactTarball = join(artifactsDir, 'zutools-react-0.1.0.tgz');
+const workspacePackage = JSON.parse(await readFile(join(workspaceRoot, 'package.json'), 'utf8'));
+const coreTarball = join(artifactsDir, `zutools-core-${workspacePackage.version}.tgz`);
+const reactTarball = join(artifactsDir, `zutools-react-${workspacePackage.version}.tgz`);
 const reportPath = join(workspaceRoot, 'benchmarks/tree-shaking.json');
 const allowedGrowthRatio = 0.05;
 const allowedGrowthBytes = 64;
@@ -153,6 +154,16 @@ try {
     join(consumerDir, 'react-portal.js'),
     `import '@zutools/react/styles.css';\nimport { ToolsPortal } from '@zutools/react/portal';\nconsole.log(ToolsPortal);\n`
   );
+  await writeFile(
+    join(consumerDir, 'core-pdf.js'),
+    `import { createPdfToolsClient } from '@zutools/core/pdf';\nconsole.log(createPdfToolsClient);\n`
+  );
+  for (const tool of ['merge-pdf', 'organize-pdf', 'split-pdf']) {
+    await writeFile(
+      join(consumerDir, `react-${tool}.js`),
+      `import '@zutools/react/${tool}.css';\nimport * as tool from '@zutools/react/${tool}';\nconsole.log(tool);\n`
+    );
+  }
 
   const reactExternals = [
     'react',
@@ -164,7 +175,11 @@ try {
   ];
   const report = {
     coreWordCounter: await measure('core-word-counter.js'),
+    corePdfClient: await measure('core-pdf.js'),
     reactWordCounter: await measure('react-word-counter.js', reactExternals),
+    reactMergePdf: await measure('react-merge-pdf.js', reactExternals),
+    reactOrganizePdf: await measure('react-organize-pdf.js', reactExternals),
+    reactSplitPdf: await measure('react-split-pdf.js', reactExternals),
     reactPortal: await measure('react-portal.js', reactExternals),
   };
 
@@ -177,6 +192,16 @@ try {
     report.reactWordCounter.css.gzipBytes < report.reactPortal.css.gzipBytes,
     'The individual tool CSS must be smaller than the complete portal CSS'
   );
+  for (const entry of ['reactMergePdf', 'reactOrganizePdf', 'reactSplitPdf']) {
+    assert.ok(
+      report[entry].javascript.gzipBytes < report.reactPortal.javascript.gzipBytes,
+      `${entry} JavaScript must be smaller than the complete portal`
+    );
+    assert.ok(
+      report[entry].css.gzipBytes < report.reactPortal.css.gzipBytes,
+      `${entry} CSS must be smaller than the complete portal`
+    );
+  }
 
   console.table(
     Object.entries(report).map(([entry, metrics]) => ({

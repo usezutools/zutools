@@ -16,3 +16,5 @@ export {
   type TextAnalysis,
   type TextAnalysisOptions,
 } from './word-counter.js';
+
+export * from './pdf.js';

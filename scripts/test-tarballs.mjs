@@ -73,13 +73,19 @@ try {
       import { formatJson } from '@zutools/core/json';
       import { toolsCatalog } from '@zutools/core/catalog';
       import { analyzeText } from '@zutools/core/word-counter';
+      import { createPdfToolsClient, parsePdfRanges } from '@zutools/core/pdf';
+      import { existsSync } from 'node:fs';
+      import { fileURLToPath } from 'node:url';
       import catalogJson from '@zutools/core/catalog.json' with { type: 'json' };
 
       assert.equal(utf8ToBase64('ZU Tools'), 'WlUgVG9vbHM=');
       assert.deepEqual(csvToObjects('name,value\\nalpha,1'), [{ name: 'alpha', value: '1' }]);
       assert.equal(formatJson('{"ready":true}'), '{\\n  "ready": true\\n}');
       assert.equal(analyzeText('Hello brave world.').words, 3);
-      assert.equal(toolsCatalog.tools.length, 11);
+      assert.equal(toolsCatalog.tools.length, 14);
+      assert.deepEqual(parsePdfRanges('1; 2-3', 3), [[0], [1,2]]);
+      assert.equal(typeof createPdfToolsClient, 'function');
+      for (const name of ['pdf.worker.js','pdfjs.worker.js','pdf-preview','pdf-build.json']) assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/core/'+name))));
       assert.equal(catalogJson.tools.length, toolsCatalog.tools.length);
       console.log('Vanilla consumer passed');
     `,
@@ -115,6 +121,9 @@ try {
       import { renderToStaticMarkup } from 'react-dom/server';
       import ToolsPortal, { portalCatalog, portalRegistry } from '@zutools/react/portal';
       import { WordCounter } from '@zutools/react/word-counter';
+      import { MergePdf } from '@zutools/react/merge-pdf';
+      import { OrganizePdf } from '@zutools/react/organize-pdf';
+      import { SplitPdf } from '@zutools/react/split-pdf';
 
       const markup = renderToStaticMarkup(
         React.createElement(ToolsPortal, {
@@ -125,6 +134,8 @@ try {
       );
       assert.match(markup, /ZU Tools/);
       assert.match(renderToStaticMarkup(React.createElement(WordCounter)), /textarea/);
+      for (const Component of [MergePdf, OrganizePdf, SplitPdf]) assert.match(renderToStaticMarkup(React.createElement(Component)), /application/);
+      for (const name of ['merge-pdf','organize-pdf','split-pdf']) assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/'+name+'.css'))));
       assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/styles.css'))));
       assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/workspace.css'))));
       assert.ok(existsSync(fileURLToPath(import.meta.resolve('@zutools/react/word-counter.css'))));
@@ -137,6 +148,10 @@ try {
         portalRegistry,
       } from '@zutools/react/portal';
       import { WordCounter } from '@zutools/react/word-counter';
+      import { MergePdf } from '@zutools/react/merge-pdf';
+      import { OrganizePdf } from '@zutools/react/organize-pdf';
+      import { SplitPdf } from '@zutools/react/split-pdf';
+      import { createPdfToolsClient, type PdfResult } from '@zutools/core/pdf';
       import '@zutools/react/styles.css';
       import '@zutools/react/word-counter.css';
 
@@ -149,6 +164,9 @@ try {
       );
 
       export const isolatedTool = <WordCounter language="es" />;
+      export const pdfTools = [<MergePdf language="es" />, <OrganizePdf />, <SplitPdf />];
+      export const pdfApi = createPdfToolsClient;
+      export type Result = PdfResult;
     `,
     'tsconfig.json': `${JSON.stringify(
       {

@@ -2,6 +2,7 @@ import { lazy, Suspense, useState } from 'react';
 
 const IsolatedExample = lazy(() => import('./IsolatedExample'));
 const CatalogueExample = lazy(() => import('./CatalogueExample'));
+const PdfExample = lazy(() => import('./PdfExample'));
 
 const COPY = {
   en: {
@@ -54,6 +55,7 @@ export default function App() {
 
         <div className="example-controls" aria-label="Example controls">
           <div className="example-segmented">
+            <button type="button" className={view === 'pdf' ? 'active' : ''} onClick={() => setView('pdf')}>PDF</button>
             <button
               type="button"
               className={view === 'isolated' ? 'active' : ''}
@@ -92,7 +94,7 @@ export default function App() {
       </header>
 
       <Suspense fallback={<div className="example-loading">Loading view…</div>}>
-        {view === 'isolated' ? (
+        {view === 'pdf' ? <PdfExample language={language} /> : view === 'isolated' ? (
           <IsolatedExample language={language} />
         ) : (
           <CatalogueExample

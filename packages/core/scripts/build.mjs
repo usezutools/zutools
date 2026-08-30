@@ -1,5 +1,6 @@
 import { build } from 'esbuild';
 import { copyFile, mkdir, readdir, rm } from 'node:fs/promises';
+import { buildPdf } from './pdf/build.mjs';
 
 await rm('dist', { recursive: true, force: true });
 
@@ -12,6 +13,7 @@ await build({
     image: 'src/image.js',
     'image-metadata': 'src/image-metadata.js',
     json: 'src/json.js',
+    pdf: 'src/pdf.js',
     text: 'src/text.js',
     timestamp: 'src/timestamp.js',
     'word-counter': 'src/word-counter.js',
@@ -33,3 +35,5 @@ await Promise.all(
     .filter((filename) => filename.endsWith('.d.ts'))
     .map((filename) => copyFile(`src/${filename}`, `dist/${filename}`))
 );
+
+await buildPdf();
