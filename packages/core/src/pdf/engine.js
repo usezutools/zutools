@@ -88,47 +88,25 @@ function extractionWarnings(pdf, warnings) {
   if (hasAccessibility(pdf)) warnings.push('ACCESSIBILITY_TAGS_REMOVED');
 }
 
-async function nativeMerge(sources, options, warnings) {
+async function nativeMerge(sources, warnings) {
   const later = sources.slice(1);
-  const laterTagged = later.some(hasAccessibility);
-  if (laterTagged && options.accessibility !== 'remove') {
-    fail('ACCESSIBILITY_CONSENT_REQUIRED', 'Creating this result without its accessible reading structure requires confirmation.');
-  }
-
-  let out;
-  if (options.accessibility === 'remove') {
-    out = PDF.create(); clearDocumentMetadata(out);
-    for (const source of sources) {
-      materializeInheritedPageAttributes(source);
-      await out.copyPagesFrom(source, source.getPages().map((_, index) => index), {
-        includeAnnotations: true,
-        includeStructure: false,
-      });
-    }
-    if (sources.some(hasAccessibility)) warnings.push('ACCESSIBILITY_TAGS_REMOVED');
-    if (sources.some(hasDocumentStructures)) warnings.push('DOCUMENT_STRUCTURES_OMITTED_BY_NATIVE_EXTRACTION');
-  } else {
-    [out] = sources;
-    for (const source of later) {
-      materializeInheritedPageAttributes(source);
-      await out.copyPagesFrom(source, source.getPages().map((_, index) => index), {
-        includeAnnotations: true,
-        includeStructure: false,
-      });
-      if (hasDocumentStructures(source)) warnings.push('DOCUMENT_STRUCTURES_FROM_ADDITIONAL_INPUTS_OMITTED');
-    }
+  const [out] = sources;
+  for (const source of later) {
+    materializeInheritedPageAttributes(source);
+    await out.copyPagesFrom(source, source.getPages().map((_, index) => index), {
+      includeAnnotations: true,
+      includeStructure: false,
+    });
+    if (hasDocumentStructures(source)) warnings.push('DOCUMENT_STRUCTURES_FROM_ADDITIONAL_INPUTS_OMITTED');
   }
   clearDocumentMetadata(out);
   return out;
 }
 
-async function nativeOrganize(source, plan, options, warnings) {
+async function nativeOrganize(source, plan, warnings) {
   const count = source.getPageCount(), selected = plan.map(item => item.index);
   const isWholePermutation = selected.length === count && new Set(selected).size === count;
-  if (!isWholePermutation || options.accessibility === 'remove') {
-    if (hasAccessibility(source) && options.accessibility !== 'remove') {
-      fail('ACCESSIBILITY_CONSENT_REQUIRED', 'Creating this result without its accessible reading structure requires confirmation.');
-    }
+  if (!isWholePermutation) {
     materializeInheritedPageAttributes(source);
     const out = await source.extractPages(selected, { includeAnnotations: true });
     plan.forEach((item, index) => out.getPages()[index].setRotation(
@@ -152,13 +130,10 @@ async function nativeOrganize(source, plan, options, warnings) {
   return source;
 }
 
-async function nativeSplit(source, groups, options, warnings) {
+async function nativeSplit(source, groups, warnings) {
   const count = source.getPageCount();
   if (groups.length === 1 && groups[0].length === count && new Set(groups[0]).size === count) {
-    return [await nativeOrganize(source, groups[0].map(index => ({ index, rotation: 0 })), options, warnings)];
-  }
-  if (hasAccessibility(source) && options.accessibility !== 'remove') {
-    fail('ACCESSIBILITY_CONSENT_REQUIRED', 'Creating these results without their accessible reading structure requires confirmation.');
+    return [await nativeOrganize(source, groups[0].map(index => ({ index, rotation: 0 })), warnings)];
   }
   materializeInheritedPageAttributes(source);
   extractionWarnings(source, warnings);
@@ -204,9 +179,9 @@ export async function runTool(toolId, inputs, plan, options = {}) {
     const warnings = [];
     if (sources.some(pdf => pdf.recoveredViaBruteForce || pdf.warnings.length)) warnings.push('SOURCE_RECOVERED');
     let documents;
-    if (toolId === 'merge-pdf') documents = [await nativeMerge(sources, options, warnings)];
-    else if (toolId === 'organize-pdf') documents = [await nativeOrganize(sources[0], job.plan, options, warnings)];
-    else documents = await nativeSplit(sources[0], job.plan, options, warnings);
+    if (toolId === 'merge-pdf') documents = [await nativeMerge(sources, warnings)];
+    else if (toolId === 'organize-pdf') documents = [await nativeOrganize(sources[0], job.plan, warnings)];
+    else documents = await nativeSplit(sources[0], job.plan, warnings);
 
     const results = []; let outputBytes = 0;
     for (const [index, document] of documents.entries()) {
@@ -215,7 +190,9 @@ export async function runTool(toolId, inputs, plan, options = {}) {
         toolId === 'organize-pdf' ? job.plan.length : inputPageCount;
       const bytes = await saveAndVerify(document, expectedCount, { ...job.limits, maxOutputBytes: job.limits.maxOutputBytes - outputBytes });
       outputBytes += bytes.length;
-      results.push({ name: toolId === 'split-pdf' ? `part-${index + 1}.pdf` : `${toolId}.pdf`, bytes, pageCount: expectedCount });
+      const requestedName=options.outputNames?.[index];
+      const safeOutputName=typeof requestedName==='string'&&/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}\.pdf$/i.test(requestedName)?requestedName:null;
+      results.push({ name: toolId === 'split-pdf' ? safeOutputName || `part-${index + 1}.pdf` : `${toolId}.pdf`, bytes, pageCount: expectedCount });
     }
     return { outputs: results, inputBytes: job.inputBytes, outputBytes, elapsedMs: performance.now() - started,
       validation: 'save-reload', warnings: [...new Set(warnings)] };

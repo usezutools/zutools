@@ -42,11 +42,10 @@ test('PDF native wrapper: LibPDF operations, product policy and worker lifecycle
    assert.equal(pdf.getPages()[0].node.has(PDFName.of('StructParents')),true);assert(!result.warnings.includes('ACCESSIBILITY_TAGS_REMOVED'));
  });
 
- await t.test('tagged additional inputs require consent and native untagged copying',async()=>{
+ await t.test('tagged additional inputs continue through native copying without consent',async()=>{
    const tagged=await makePdf({feature:'tagged'});
-   await assert.rejects(api.mergePdf([plain,tagged]),{code:'ACCESSIBILITY_CONSENT_REQUIRED'});
-   const result=await api.mergePdf([plain,tagged],{accessibility:'remove'}),pdf=await load(result.outputs[0].bytes);
-   assert(result.warnings.includes('ACCESSIBILITY_TAGS_REMOVED'));
+   const result=await api.mergePdf([plain,tagged]),pdf=await load(result.outputs[0].bytes);
+   assert(result.warnings.includes('DOCUMENT_STRUCTURES_FROM_ADDITIONAL_INPUTS_OMITTED'));
    assert.equal(pdf.catalog.has(PDFName.of('MarkInfo')),false);assert.equal(pdf.catalog.has(PDFName.of('StructTreeRoot')),false);
    assert(pdf.getPages().every(page=>!page.node.has(PDFName.of('StructParents'))));
  });
@@ -65,10 +64,9 @@ test('PDF native wrapper: LibPDF operations, product policy and worker lifecycle
    assert.equal(pdf.getTitle(),'Untitled');assert(!result.warnings.includes('DOCUMENT_METADATA_OMITTED_BY_NATIVE_EXTRACTION'));
  });
 
- await t.test('tagged extraction is consented and performed by LibPDF includeStructure=false',async()=>{
+ await t.test('tagged extraction continues through the native extraction path',async()=>{
    const tagged=await makePdf({feature:'tagged'}),plan=[{index:0,rotation:0},{index:2,rotation:0}];
-   await assert.rejects(api.organizePdf(tagged,plan),{code:'ACCESSIBILITY_CONSENT_REQUIRED'});
-   const result=await api.organizePdf(tagged,plan,{accessibility:'remove'}),pdf=await load(result.outputs[0].bytes);
+   const result=await api.organizePdf(tagged,plan),pdf=await load(result.outputs[0].bytes);
    assert(result.warnings.includes('ACCESSIBILITY_TAGS_REMOVED'));assert.equal(pdf.catalog.has(PDFName.of('StructTreeRoot')),false);
    assert(pdf.getPages().every(page=>!page.node.has(PDFName.of('StructParents'))));
  });
@@ -80,10 +78,19 @@ test('PDF native wrapper: LibPDF operations, product policy and worker lifecycle
    assert.equal((await load(result.outputs[0].bytes)).getPageCount(),2);assert.equal((await load(result.outputs[1].bytes)).getPageCount(),1);
  });
 
- await t.test('split of tagged documents requires explicit native structure omission',async()=>{
+ await t.test('split keeps each requested output name and its matching page group',async()=>{
+   const result=await api.splitPdf(plain,[[1],[0,2]],{outputNames:['split3.pdf','split1.pdf']}),archive=unzipSync(result.archive);
+   assert.deepEqual(result.outputs.map(output=>output.name),['split3.pdf','split1.pdf']);
+   assert.deepEqual(Object.keys(archive).sort(),['split1.pdf','split3.pdf']);
+   assert.equal((await load(result.outputs[0].bytes)).getPageCount(),1);
+   assert.equal((await load(result.outputs[1].bytes)).getPageCount(),2);
+   assert.deepEqual(archive['split3.pdf'],result.outputs[0].bytes);
+   assert.deepEqual(archive['split1.pdf'],result.outputs[1].bytes);
+ });
+
+ await t.test('split of tagged documents continues through native extraction',async()=>{
    const tagged=await makePdf({feature:'tagged'});
-   await assert.rejects(api.splitPdf(tagged,[[0],[1,2]]),{code:'ACCESSIBILITY_CONSENT_REQUIRED'});
-   const result=await api.splitPdf(tagged,[[0],[1,2]],{accessibility:'remove'});
+   const result=await api.splitPdf(tagged,[[0],[1,2]]);
    assert(result.warnings.includes('ACCESSIBILITY_TAGS_REMOVED'));
    for(const output of result.outputs)assert.equal((await load(output.bytes)).catalog.has(PDFName.of('StructTreeRoot')),false);
  });

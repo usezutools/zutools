@@ -3,9 +3,9 @@ export class PdfToolError extends Error {
 }
 export const fail = (code, message) => { throw new PdfToolError(code, message); };
 
-// Conservative beta bounds, not guarantees of device memory availability.
+// Product resource bounds, not limits imposed by the PDF processing dependency.
 export const LIMITS = Object.freeze({ maxInputBytes: 16 * 1024 ** 2,
-  maxOutputBytes: 32 * 1024 ** 2, maxFiles: 20, maxPages: 200, maxOutputs: 50 });
+  maxOutputBytes: 32 * 1024 ** 2, maxFiles: 50, maxPages: 200, maxOutputs: 50 });
 export const tools = Object.freeze([
   { id: 'merge-pdf', name: 'Unir PDF', edition: 'Free' },
   { id: 'organize-pdf', name: 'Organizar PDF', edition: 'Free' },

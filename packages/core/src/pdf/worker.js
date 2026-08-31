@@ -10,7 +10,7 @@ self.onmessage = async ({ data }) => {
   if (busy || data?.type !== 'run') return; busy = true;
   try {
     const result = await runTool(data.toolId, data.inputs, data.plan, {
-      limits: data.limits, accessibility: data.accessibility, onProgress: progress => self.postMessage({ type: 'progress', progress }),
+      limits: data.limits, outputNames: data.outputNames, onProgress: progress => self.postMessage({ type: 'progress', progress }),
     });
     if (data.toolId === 'split-pdf') {
       result.archive = zipSync(Object.fromEntries(result.outputs.map(o => [o.name, o.bytes])), { level: 0 });

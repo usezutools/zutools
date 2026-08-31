@@ -15,7 +15,6 @@ export default function PdfExample({ language }) {
     <nav className="example-segmented" aria-label="PDF tools">
       {Object.keys(tools).map((key, index) => <button type="button" key={key} className={mode === key ? 'active' : ''} onClick={() => setMode(key)}>{names[language][index]}</button>)}
     </nav>
-    <h2>{names[language][Object.keys(tools).indexOf(mode)]}</h2>
     <Tool key={mode} language={language} />
   </section>;
 }

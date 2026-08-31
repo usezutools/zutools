@@ -3,7 +3,7 @@ export type PdfRotation = 0 | 90 | 180 | 270;
 export interface PdfPageSelection { index: number; rotation: PdfRotation }
 export interface PdfLimits { maxInputBytes: number; maxOutputBytes: number; maxFiles: number; maxPages: number; maxOutputs: number }
 export interface PdfProgress { phase: 'checking-input' | 'checking-output'; current: number; total: number }
-export interface PdfJobOptions { signal?: AbortSignal; timeoutMs?: number; limits?: Partial<PdfLimits>; onProgress?: (progress: PdfProgress) => void; accessibility?: 'remove' }
+export interface PdfJobOptions { signal?: AbortSignal; timeoutMs?: number; limits?: Partial<PdfLimits>; onProgress?: (progress: PdfProgress) => void; outputNames?: string[] }
 export interface PdfOutput { name: string; bytes: Uint8Array; pageCount: number }
 export interface PdfResult { outputs: PdfOutput[]; archive?: Uint8Array; inputBytes: number; outputBytes: number; elapsedMs: number; validation: string; warnings: string[]; networkAttempts: number }
 export interface PdfInspection { pageCount: number; pages: Array<{width: number; height: number; rotation: PdfRotation}>; features: {bookmarks: boolean; forms: boolean; metadata: boolean; accessibilityTags: boolean}; networkAttempts: number }

@@ -5,12 +5,11 @@ export { PdfToolError, LIMITS as PDF_LIMITS, parseRanges as parsePdfRanges, tool
 export function createPdfToolsClient({ workerUrl = new URL('./pdf.worker.js', import.meta.url),
   workerFactory = url => new Worker(url, { type: 'module' }) } = {}) {
   let active = null, disposed = false;
-  async function run(toolId, inputs, plan, { signal, timeoutMs = 30000, limits, onProgress, accessibility } = {}) {
+  async function run(toolId, inputs, plan, { signal, timeoutMs = 30000, limits, onProgress, outputNames } = {}) {
     if (disposed) throw new PdfToolError('DISPOSED', 'Cliente cerrado.');
     if (active) throw new PdfToolError('BUSY', 'Ya hay una operación en curso.');
     if (signal != null && (typeof signal.aborted !== 'boolean' || typeof signal.addEventListener !== 'function' || typeof signal.removeEventListener !== 'function')) throw new PdfToolError('INVALID_INPUT', 'AbortSignal no válido.');
     if (onProgress != null && typeof onProgress !== 'function') throw new PdfToolError('INVALID_INPUT', 'Callback no válido.');
-    if (accessibility !== undefined && accessibility !== 'remove') throw new PdfToolError('INVALID_INPUT', 'Política de accesibilidad no válida.');
     if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 120000) throw new PdfToolError('INVALID_INPUT', 'Timeout no válido.');
     if (signal?.aborted) throw new PdfToolError('ABORTED', 'Operación cancelada.');
     const job = validateRequest(toolId, inputs, plan, limits);
@@ -32,7 +31,7 @@ export function createPdfToolsClient({ workerUrl = new URL('./pdf.worker.js', im
         worker.onerror = worker.onmessageerror = () => finish(new PdfToolError('WORKER_FAILED', 'El motor PDF no pudo completar la operación.'));
         worker.onmessage = ({ data }) => {
           if (done) return;
-          if (data?.type === 'ready') worker.postMessage({ type: 'run', toolId, inputs: copies, plan: job.plan, limits: job.limits, accessibility }, copies.map(b => b.buffer));
+          if (data?.type === 'ready') worker.postMessage({ type: 'run', toolId, inputs: copies, plan: job.plan, limits: job.limits, outputNames }, copies.map(b => b.buffer));
           else if (data?.type === 'progress') {
             try { onProgress?.(data.progress); } catch { finish(new PdfToolError('CALLBACK_FAILED', 'Falló el callback de progreso.')); }
           } else if (data?.type === 'error') finish(new PdfToolError(data.code, data.message));

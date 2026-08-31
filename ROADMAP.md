@@ -22,9 +22,9 @@ covered by automated tests; pending items are not implied to be supported.
   help text, errors, warnings and API-visible status values must describe the
   user-visible outcome and any required decision without naming a library or
   exposing its internal capability boundary.
-- Do not hide a material loss from the user: explain exactly which document
-  behavior may change and request consent when needed, but keep the technical
-  cause and library comparison internal.
+- Baseline tools continue without technical warnings or blocking confirmations
+  because they always create a new file and never modify the original. Known
+  preservation gaps remain internal until the structure-preserving edition.
 - Dependency manifests and mandatory third-party license notices are exempt from
   this product-copy rule and must remain complete and legally accurate.
 
@@ -36,8 +36,8 @@ covered by automated tests; pending items are not implied to be supported.
 - Leave merge document Info/XMP blank without a metadata warning, preserving
   their indirect object slots to avoid an upstream reference-remapping defect.
 - Accept LibPDF recovery and producer-specific structures when it can process them.
-- Preserve tagged whole-document operations; request confirmation only when a
-  native extraction will omit accessibility structure.
+- Preserve tagged whole-document operations and let native extraction continue
+  without a blocking confirmation when it cannot carry accessibility structure.
 - Verify the three maintained real-world regression PDFs.
 
 ## 2. Packaging and browser confidence - complete
@@ -48,7 +48,19 @@ covered by automated tests; pending items are not implied to be supported.
 - Chromium, Firefox, WebKit and mobile-viewport browser runs.
 - License notices, public-boundary scan and bundle-size baselines.
 
-## 3. Upstream compatibility follow-up - next
+## 3. Free release closure - complete
+
+- Keep Merge, Organize and Split on the validated Free interaction model.
+- Treat the current file, byte, page and output limits as Free product limits;
+  reveal them only when a user reaches one.
+- Keep the automated package, browser, license, public-boundary and bundle-size
+  gates green after the completed PDF UX work.
+- Human acceptance completed for Merge, Organize and Split with the maintained
+  real PDFs.
+- Record visual or functional defects found during acceptance as Free fixes;
+  preservation enhancements and multi-source Split remain deferred.
+
+## 4. Upstream compatibility follow-up - deferred
 
 - Re-test each `@libpdf/core` release against the real-document corpus.
 - Re-evaluate workarounds only after exercising the new release's high-level API;
@@ -62,15 +74,15 @@ covered by automated tests; pending items are not implied to be supported.
   evaluate maintained PDF libraries that expose that operation through a public
   high-level API and have licenses compatible with this repository and its npm
   distribution. Record the comparison before choosing or rejecting a candidate.
-- Replace warnings with native preservation automatically as upstream adds it;
+- Replace known omissions with native preservation automatically as upstream adds it;
   do not build a parallel PDF engine.
 
-## 4. Lite - structure-preserving PDF operations
+## 5. Lite - structure-preserving PDF operations - deferred
 
 This is internal planning. Lite must not be mentioned by the current public PDF
-tools until the edition is launched. The baseline tools may continue with a
-clear, outcome-based warning when a global document structure cannot be carried
-into the result; public copy must not identify the underlying library or reason.
+tools until the edition is launched. Baseline tools continue without exposing
+document-structure diagnostics or requiring confirmation; the original remains
+unchanged and complete preservation is evaluated internally for Lite.
 
 ### Candidate Lite capabilities
 
@@ -93,6 +105,15 @@ into the result; public copy must not identify the underlying library or reason.
   IDs, roles, classes, namespaces and page references.
 - Offer a preflight report showing what the selected operation can preserve,
   omit or resolve before processing, plus an output audit afterward.
+- Provide a multi-source split workspace: users can add several PDFs, create
+  named output ranges, assign pages to a range by clicking or dragging, reorder
+  pages within each output and see one stable color per resulting file. The
+  range panel owns its own Generate action, summary and download state; it is
+  not a full-width floating bar over the page canvas.
+- Allow each Lite output range to combine pages from more than one input PDF,
+  with source identity, page counts and output order visible before generation.
+  The Free split flow remains intentionally single-source and uses the same
+  click-to-create-range mental model without multi-source configuration.
 - Keep the existing policy that document Info/XMP metadata is blanked silently;
   language, page labels, bookmarks and accessibility structure are functional
   document data and must not be treated as disposable metadata.
@@ -129,7 +150,7 @@ into the result; public copy must not identify the underlying library or reason.
 - The selected libraries and licenses pass the repository's notices, boundary
   and bundle checks. No Lite name or promise leaks into the baseline public UI.
 
-## 5. Product hardening - planned
+## 6. Product hardening - planned
 
 - Expand the producer corpus across office suites, scanners, design tools,
   browsers, mobile apps, forms, annotations and repaired PDFs.
@@ -137,10 +158,10 @@ into the result; public copy must not identify the underlying library or reason.
   browser API for it.
 - Add signature-aware workflows only if outputs can communicate signature status
   without implying the rewritten file remains signed.
-- Run accessibility review with assistive-technology users for tagged-source
-  messaging and extraction consent.
+- Run accessibility review with assistive-technology users for the future
+  structure-preserving workflows.
 
-## Human acceptance checklist
+## Human acceptance checklist - complete
 
 Before a PDF release, a human should confirm:
 
@@ -149,8 +170,8 @@ Before a PDF release, a human should confirm:
 2. Download a one-file merge and a full-page reorder; compare several pages at
    high zoom and confirm links/bookmarks/forms that exist in the source still work.
 3. For a tagged PDF, confirm whole-document operations do not ask to remove tags.
-4. Split a tagged multi-page PDF; confirm consent appears only after the ranges
-   exclude pages or create multiple parts, and that the warning appears afterward.
+4. Split a tagged multi-page PDF; confirm processing is not blocked and no
+   accessibility or document-structure warning appears before or afterward.
 5. Open every downloaded PDF in at least two independent viewers and confirm page
    count, order, rotation, searchable text and printing.
 6. Confirm merge metadata fields are blank and no metadata warning is shown.

@@ -2,8 +2,8 @@
 
 > Internal engineering documentation. Library selection, versions, adaptations
 > and capability boundaries from this document must not be reused in public UI,
-> product help, user-facing errors or marketing copy. Public messages describe
-> only the observable result and any action or consent required. Mandatory
+> product help, user-facing errors or marketing copy. Baseline operations do not
+> expose structure diagnostics or request preservation consent. Mandatory
 > dependency and license notices remain complete.
 
 Reviewed 2026-08-30. `merge-pdf`, `organize-pdf` and `split-pdf` are local,
@@ -36,28 +36,27 @@ than recreating its PDF logic inside ZU Tools.
   adapter.
 - Excluding or duplicating pages and producing multiple split parts uses
   LibPDF's native `extractPages()` operation. It creates independent documents,
-  so document-level structures that LibPDF does not carry are reported with a
-  warning instead of being reimplemented or preemptively rejected.
+  so document-level structures that LibPDF does not carry are recorded only in
+  result diagnostics instead of being reimplemented or preemptively rejected.
 - Signed documents are not rewritten because any rewrite invalidates the
   existing signature. Encrypted documents without usable credentials are
   rejected by LibPDF.
 
 ## Accessibility tags
 
-Whole-document operations preserve accessibility structures natively and need
-no confirmation. This includes a one-file merge, a permutation containing every
+Whole-document operations preserve accessibility structures natively. This
+includes a one-file merge, a permutation containing every
 page exactly once, and a one-part split containing every page exactly once.
 
 When an operation genuinely extracts pages, LibPDF creates a new document with
-`includeStructure: false`. If the source is tagged, the caller must first obtain
-explicit confirmation and pass `{ accessibility: 'remove' }`. The adapter does
-not manually edit `StructTreeRoot`, `MarkInfo`, `StructParents` or related
-objects; it uses the official native extraction/copy option and reports
-`ACCESSIBILITY_TAGS_REMOVED`.
+`includeStructure: false`. The adapter continues automatically and does not
+manually edit `StructTreeRoot`, `MarkInfo`, `StructParents` or related objects.
+The omission remains an internal result diagnostic and is not shown in the
+baseline UI.
 
 When merging several files, LibPDF preserves the first document catalog but does
-not merge document-level structure roots from later inputs. A tagged later input
-therefore also requires the same confirmation.
+not merge document-level structure roots from later inputs. The operation still
+continues without a blocking confirmation.
 
 ## Native preservation and known upstream boundaries
 
@@ -71,8 +70,7 @@ page-level references. Current examples include outlines, AcroForm roots and
 named-destination name trees. ZU Tools does not reconstruct these graphs. It
 allows LibPDF to produce the document and returns
 `DOCUMENT_STRUCTURES_OMITTED_BY_NATIVE_EXTRACTION` or
-`DOCUMENT_STRUCTURES_FROM_ADDITIONAL_INPUTS_OMITTED` so the UI can explain the
-tradeoff. Callers that require those structures should keep the full document.
+`DOCUMENT_STRUCTURES_FROM_ADDITIONAL_INPUTS_OMITTED` as internal diagnostics.
 
 LibPDF recovery warnings are accepted and surfaced as
 `SOURCE_RECOVERED`; an imperfect cross-reference table is not rejected
@@ -90,7 +88,6 @@ try {
   const parts = await client.splitPdf(
     firstBytes,
     parsePdfRanges('1,3; 2', inspection.pageCount),
-    { accessibility: 'remove' }, // only after confirmation when required
   );
 } finally {
   client.dispose();
@@ -98,8 +95,7 @@ try {
 ```
 
 Core page indices are zero-based; UI ranges are one-based. Job options accept
-`signal`, `onProgress`, `timeoutMs`, lower limits and the explicit accessibility
-decision. One job runs per client.
+`signal`, `onProgress`, `timeoutMs` and lower limits. One job runs per client.
 
 Browsers must support module workers, Web Crypto and modern ES modules. Default
 workers resolve relative to their package entry points; custom `workerUrl` and
@@ -107,7 +103,7 @@ workers resolve relative to their package entry points; custom `workerUrl` and
 previewing use local worker assets only. There are no uploads, telemetry calls
 or document-processing endpoints.
 
-Default bounds are 16 MiB total input, 20 inputs, 200 output pages, 50 output
+Default bounds are 16 MiB total input, 50 inputs, 200 output pages, 50 output
 files, 32 MiB combined PDF output and a 30-second job timeout. They are product
 resource limits, not PDF-format compatibility checks.
 
@@ -141,7 +137,7 @@ page count, dimensions and rotations before delivery. This is an output sanity
 check, not a second PDF validator or an accessibility audit.
 
 Automated coverage includes metadata policy, native catalog preservation,
-accessibility decisions, recovered inputs, unknown structures, inherited page
+accessibility behavior, recovered inputs, unknown structures, inherited page
 values, numeric precision, ranges, limits, worker lifecycle, thumbnails,
 downloads, ZIP output and the no-network boundary. The maintained manual matrix
 and remaining work are in the repository [roadmap](../../ROADMAP.md).
