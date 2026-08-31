@@ -44,7 +44,6 @@ const UI = {
     noResultsCopy: 'Prueba con otro término o cambia la categoría seleccionada.',
     clear: 'Limpiar filtros',
     local: '100% local',
-    localLibrary: 'Procesamiento local',
     proposed: 'Propuesta',
     openCard: 'Ver ficha',
     openTool: 'Abrir herramienta',
@@ -76,7 +75,6 @@ const UI = {
     noResultsCopy: 'Try another term or select a different category.',
     clear: 'Clear filters',
     local: '100% local',
-    localLibrary: 'Local processing',
     proposed: 'Proposal',
     openCard: 'View details',
     openTool: 'Open tool',
@@ -106,8 +104,7 @@ function ToolCard({
   onOpen,
   featured = false,
 }) {
-  const executionLabel =
-    tool.execution === 'local-with-library' ? copy.localLibrary : copy.local;
+  const executionLabel = copy.local;
 
   return (
     <button

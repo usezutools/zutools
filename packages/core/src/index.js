@@ -14,3 +14,5 @@ export {
   DEFAULT_WORDS_PER_MINUTE,
   segmentWords,
 } from './word-counter.js';
+
+export * from './pdf.js';

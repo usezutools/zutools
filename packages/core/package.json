@@ -88,7 +88,21 @@
       "types": "./dist/word-counter.d.ts",
       "import": "./dist/word-counter.js",
       "default": "./dist/word-counter.js"
-    }
+    },
+    "./pdf": {
+      "types": "./dist/pdf.d.ts",
+      "import": "./dist/pdf.js",
+      "default": "./dist/pdf.js"
+    },
+    "./pdf-preview": {
+      "types": "./dist/pdf-preview.d.ts",
+      "import": "./dist/pdf-preview.js",
+      "default": "./dist/pdf-preview.js"
+    },
+    "./pdf.worker.js": "./dist/pdf.worker.js",
+    "./pdfjs.worker.js": "./dist/pdfjs.worker.js",
+    "./pdf-build.json": "./dist/pdf-build.json",
+    "./pdf-assets/*": "./dist/pdf-assets/*"
   },
   "publishConfig": {
     "access": "public",
@@ -98,6 +112,6 @@
     "build": "node scripts/build.mjs",
     "test": "node --test src/*.test.mjs",
     "validate:catalog": "node scripts/validate-catalog.mjs",
-    "prepack": "npm run test && npm run validate:catalog && npm run build"
+    "prepack": "npm run build && npm run test && npm run validate:catalog"
   }
 }

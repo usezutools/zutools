@@ -92,3 +92,22 @@ for the full portal API, theming, architecture and consumer examples.
 
 [MIT](LICENSE) for ZU Tools original code. Dependencies retain their own
 licenses.
+
+## Independent PDF tools (beta)
+
+```jsx
+import { MergePdf } from '@zutools/react/merge-pdf';
+import '@zutools/react/merge-pdf.css';
+
+<MergePdf language="es" />
+```
+
+`OrganizePdf` from `@zutools/react/organize-pdf` and `SplitPdf` from
+`@zutools/react/split-pdf` work the same way, with their matching `.css` exports.
+All three are also registered in the portal. Components accept `language`,
+`workerUrl` and `previewWorkerUrl`; custom worker URLs are optional.
+
+Includes thumbnails, keyboard reorder buttons and drag/drop, page selection,
+rotation/duplication, manual ranges, cancellation, verification messages and ZIP
+downloads. Merge leaves document Info/XMP metadata blank. See the core
+API documentation for integration details.

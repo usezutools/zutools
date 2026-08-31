@@ -42,6 +42,9 @@ jobs:
       - name: Validate catalogue
         run: npm run validate
 
+      - name: Enforce public product boundary
+        run: npm run public-boundary:check
+
   package-contract:
     name: Package contract
     runs-on: ubuntu-latest
@@ -70,6 +73,12 @@ jobs:
 
       - name: Build runnable examples from tarballs
         run: npm run examples:test
+
+      - name: Install PDF test browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: Test PDF workflows in packaged consumers
+        run: npm run test:pdf:browser
 
       - name: Enforce tree-shaking limits
         run: npm run measure:tree-shaking

@@ -9,6 +9,16 @@
       "gzipBytes": 0
     }
   },
+  "corePdfClient": {
+    "javascript": {
+      "bytes": 3944,
+      "gzipBytes": 1791
+    },
+    "css": {
+      "bytes": 0,
+      "gzipBytes": 0
+    }
+  },
   "reactWordCounter": {
     "javascript": {
       "bytes": 2492,
@@ -19,14 +29,44 @@
       "gzipBytes": 885
     }
   },
-  "reactPortal": {
+  "reactMergePdf": {
     "javascript": {
-      "bytes": 45377,
-      "gzipBytes": 14300
+      "bytes": 25566,
+      "gzipBytes": 8537
     },
     "css": {
-      "bytes": 24965,
-      "gzipBytes": 5607
+      "bytes": 17071,
+      "gzipBytes": 4079
+    }
+  },
+  "reactOrganizePdf": {
+    "javascript": {
+      "bytes": 25572,
+      "gzipBytes": 8538
+    },
+    "css": {
+      "bytes": 17071,
+      "gzipBytes": 4079
+    }
+  },
+  "reactSplitPdf": {
+    "javascript": {
+      "bytes": 25566,
+      "gzipBytes": 8538
+    },
+    "css": {
+      "bytes": 17071,
+      "gzipBytes": 4079
+    }
+  },
+  "reactPortal": {
+    "javascript": {
+      "bytes": 70597,
+      "gzipBytes": 22181
+    },
+    "css": {
+      "bytes": 42035,
+      "gzipBytes": 8964
     }
   }
 }

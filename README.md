@@ -184,7 +184,7 @@ Explore [`examples/vanilla`](examples/vanilla) and
 
 ## Available tools
 
-The catalogue currently contains 11 working browser tools:
+The catalogue currently contains 14 working browser tools:
 
 | Area | Tools |
 |---|---|
@@ -192,16 +192,20 @@ The catalogue currently contains 11 working browser tools:
 | Data | JSON formatter, JSON ↔ CSV, Base64, Unix timestamp converter |
 | Text | Case converter, Word Counter |
 | Privacy | Image metadata remover |
+| PDF (beta) | Merge PDF, Organize PDF, Split PDF |
 
 The executable source of truth is
 [`packages/core/catalog/tools.json`](packages/core/catalog/tools.json). A tool
 is only included in the public catalogue after its engine, interface and tests
 exist.
 
+PDF merge leaves document Info/XMP metadata blank. PDF processing runs locally,
+keeps the originals unchanged and verifies each result before download.
+
 ## Core API
 
-`@zutools/core` is ESM, independent of React and has no runtime dependencies.
-Prefer capability entries over the root barrel:
+`@zutools/core` is ESM and independent of React. PDF processing assets are
+loaded only when needed. Prefer capability entries over the root barrel:
 
 | Entry | Main capabilities |
 |---|---|
@@ -213,6 +217,8 @@ Prefer capability entries over the root barrel:
 | `@zutools/core/word-counter` | Words, graphemes, sentences, paragraphs and reading time |
 | `@zutools/core/image` | Load images, render Canvas and create `Blob` output |
 | `@zutools/core/image-metadata` | Read local EXIF, PNG and WebP metadata |
+| `@zutools/core/pdf` | Local PDF merge, organize, split and inspection |
+| `@zutools/core/pdf-preview` | Optional local thumbnail sessions |
 | `@zutools/core/catalog` | Typed catalogue, selectors and validation |
 | `@zutools/core/catalog.json` | Raw catalogue JSON |
 
@@ -412,8 +418,8 @@ and GitHub Actions weekly; normal major upgrades are deliberately excluded.
 
 Each new tool should be implemented vertically:
 
-1. Review existing projects, maintenance activity and license compatibility.
-2. Add or wrap a framework-independent engine in `@zutools/core`.
+1. Define the expected behavior and representative acceptance fixtures.
+2. Add framework-independent processing in `@zutools/core`.
 3. Add unit tests and public types.
 4. Add the optional React interface.
 5. Export the tool through an individual entry.

@@ -66,7 +66,25 @@
       "import": "./dist/word-counter.js",
       "default": "./dist/word-counter.js"
     },
-    "./word-counter.css": "./dist/word-counter.css"
+    "./word-counter.css": "./dist/word-counter.css",
+    "./merge-pdf": {
+      "types": "./dist/merge-pdf.d.ts",
+      "import": "./dist/merge-pdf.js",
+      "default": "./dist/merge-pdf.js"
+    },
+    "./merge-pdf.css": "./dist/merge-pdf.css",
+    "./organize-pdf": {
+      "types": "./dist/organize-pdf.d.ts",
+      "import": "./dist/organize-pdf.js",
+      "default": "./dist/organize-pdf.js"
+    },
+    "./organize-pdf.css": "./dist/organize-pdf.css",
+    "./split-pdf": {
+      "types": "./dist/split-pdf.d.ts",
+      "import": "./dist/split-pdf.js",
+      "default": "./dist/split-pdf.js"
+    },
+    "./split-pdf.css": "./dist/split-pdf.css"
   },
   "dependencies": {
     "@zutools/core": "0.1.0"

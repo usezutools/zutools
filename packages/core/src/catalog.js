@@ -6,7 +6,7 @@ export function getActiveTools(catalog = toolsCatalog) {
   return catalog.tools.filter(
     (tool) =>
       tool.status !== 'deferred' &&
-      (tool.execution === 'local' || tool.execution === 'local-with-library')
+      tool.execution === 'local'
   );
 }
 
