@@ -18,6 +18,7 @@ import { csvToObjects, objectsToCsv } from '@zutools/core/csv';
 import { utf8ToBase64 } from '@zutools/core/base64';
 import { timestampToDate } from '@zutools/core/timestamp';
 import { analyzeText } from '@zutools/core/word-counter';
+import { compareText } from '@zutools/core/text-diff';
 ```
 
 All functions can also be imported from `@zutools/core`, but capability entries
@@ -33,6 +34,7 @@ make the engine in use explicit and give bundlers the smallest possible input.
 | `@zutools/core/text` | Case and naming-style transformations |
 | `@zutools/core/timestamp` | Unix timestamps and JavaScript dates |
 | `@zutools/core/word-counter` | Words, graphemes, sentences, paragraphs and reading time |
+| `@zutools/core/text-diff` | Smart, word, line and character comparison with numbered rows and visible-grapheme statistics. Smart transparently falls back to lines above 500,000 combined characters, 10,000 lines per input, or 50,000 characters in one line. |
 | `@zutools/core/image` | Browser image loading, Canvas and `Blob` output |
 | `@zutools/core/image-metadata` | Local EXIF, PNG and WebP metadata reading |
 | `@zutools/core/catalog` | Typed catalogue, selectors and validation |
@@ -41,7 +43,7 @@ make the engine in use explicit and give bundlers the smallest possible input.
 ## Runtime behaviour
 
 - No React or UI dependency.
-- No runtime package dependencies.
+- Capability-specific dependencies are bundled only where their engine is used.
 - No network requests or uploads.
 - ESM with TypeScript declarations and source maps.
 - Text and data engines can run outside the browser.

@@ -2,6 +2,7 @@ import { Base64Tool, CaseConverter, JsonCsvConverter, JsonFormatter } from './Da
 import { ImageConverter, MetadataRemover, ResizeImage } from './ImageTools';
 import TimestampTool from './TimestampTool';
 import WordCounter from './WordCounter';
+import TextDiffChecker from './TextDiffChecker';
 import { MergePdf, OrganizePdf, SplitPdf } from './PdfTools';
 
 const implementations = {
@@ -13,6 +14,7 @@ const implementations = {
   base64: Base64Tool,
   'case-converter': CaseConverter,
   'word-counter': WordCounter,
+  'text-diff-checker': TextDiffChecker,
   'unix-timestamp': TimestampTool,
   'webp-to-png': ImageConverter,
   'png-to-jpg': ImageConverter,

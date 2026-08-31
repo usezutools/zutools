@@ -79,6 +79,11 @@
       "import": "./dist/text.js",
       "default": "./dist/text.js"
     },
+    "./text-diff": {
+      "types": "./dist/text-diff.d.ts",
+      "import": "./dist/text-diff.js",
+      "default": "./dist/text-diff.js"
+    },
     "./timestamp": {
       "types": "./dist/timestamp.d.ts",
       "import": "./dist/timestamp.js",
@@ -113,5 +118,8 @@
     "test": "node --test src/*.test.mjs",
     "validate:catalog": "node scripts/validate-catalog.mjs",
     "prepack": "npm run build && npm run test && npm run validate:catalog"
+  },
+  "dependencies": {
+    "diff": "9.0.0"
   }
 }

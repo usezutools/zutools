@@ -6,7 +6,7 @@
     "includedExecutions": [
       "local"
     ],
-    "activeToolCount": 14
+    "activeToolCount": 15
   },
   "categories": [
     {
@@ -113,6 +113,14 @@
       "name": "Contador de palabras",
       "category": "text",
       "description": "Contar palabras, caracteres, frases, párrafos y tiempo estimado de lectura.",
+      "execution": "local",
+      "status": "implemented"
+    },
+    {
+      "id": "text-diff-checker",
+      "name": "Comparador de textos",
+      "category": "text",
+      "description": "Comparar dos versiones con resaltado Smart o por palabras, líneas y caracteres.",
       "execution": "local",
       "status": "implemented"
     },

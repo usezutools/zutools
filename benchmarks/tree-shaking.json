@@ -19,6 +19,16 @@
       "gzipBytes": 0
     }
   },
+  "coreTextDiff": {
+    "javascript": {
+      "bytes": 10355,
+      "gzipBytes": 3890
+    },
+    "css": {
+      "bytes": 0,
+      "gzipBytes": 0
+    }
+  },
   "reactWordCounter": {
     "javascript": {
       "bytes": 2492,
@@ -27,6 +37,16 @@
     "css": {
       "bytes": 2467,
       "gzipBytes": 885
+    }
+  },
+  "reactTextDiffChecker": {
+    "javascript": {
+      "bytes": 12287,
+      "gzipBytes": 4230
+    },
+    "css": {
+      "bytes": 9522,
+      "gzipBytes": 2456
     }
   },
   "reactMergePdf": {
@@ -61,12 +81,12 @@
   },
   "reactPortal": {
     "javascript": {
-      "bytes": 70597,
-      "gzipBytes": 22181
+      "bytes": 83044,
+      "gzipBytes": 25864
     },
     "css": {
-      "bytes": 42035,
-      "gzipBytes": 8964
+      "bytes": 50379,
+      "gzipBytes": 10477
     }
   }
 }

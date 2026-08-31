@@ -67,6 +67,13 @@
       "default": "./dist/word-counter.js"
     },
     "./word-counter.css": "./dist/word-counter.css",
+    "./text-diff-checker": {
+      "types": "./dist/text-diff-checker.d.ts",
+      "import": "./dist/text-diff-checker.js",
+      "default": "./dist/text-diff-checker.js"
+    },
+    "./text-diff-checker.css": "./dist/text-diff-checker.css",
+    "./text-diff.worker.js": "./dist/text-diff.worker.js",
     "./merge-pdf": {
       "types": "./dist/merge-pdf.d.ts",
       "import": "./dist/merge-pdf.js",
