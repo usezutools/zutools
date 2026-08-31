@@ -10,6 +10,7 @@ await build({
     catalog: 'tools/catalog.js',
     implementations: 'tools/implementations/index.js',
     'word-counter': 'tools/word-counter.js',
+    'text-diff-checker': 'tools/text-diff-checker.js',
     'merge-pdf': 'tools/merge-pdf.js',
     'organize-pdf': 'tools/organize-pdf.js',
     'split-pdf': 'tools/split-pdf.js',
@@ -33,6 +34,17 @@ await build({
     '@zutools/core',
     '@zutools/core/*',
   ],
+});
+
+await build({
+  entryPoints: { 'text-diff.worker': 'tools/text-diff.worker.js' },
+  outdir: 'dist',
+  entryNames: '[name]',
+  bundle: true,
+  format: 'esm',
+  platform: 'browser',
+  target: 'es2020',
+  sourcemap: true,
 });
 
 // `portal` shares the complete UI with the root entry. Consumers use the single

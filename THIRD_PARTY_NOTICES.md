@@ -15,6 +15,7 @@ declare the following permissive licenses:
 | TypeScript | Declaration generation and consumer validation | Apache-2.0 |
 | Vite | Runnable example development and builds | MIT |
 | React type declarations | Development and consumer validation | MIT |
+| jsdiff | Local text comparison engine | BSD-3-Clause |
 
 Each dependency retains its own copyright and license terms. The authoritative
 license text is distributed by its package and linked from its registry entry.

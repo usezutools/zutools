@@ -184,13 +184,13 @@ Explore [`examples/vanilla`](examples/vanilla) and
 
 ## Available tools
 
-The catalogue currently contains 14 working browser tools:
+The catalogue currently contains 15 working browser tools:
 
 | Area | Tools |
 |---|---|
 | Images | Resize image, WebP to PNG/JPG, PNG to JPG, JPG to PNG |
 | Data | JSON formatter, JSON ↔ CSV, Base64, Unix timestamp converter |
-| Text | Case converter, Word Counter |
+| Text | Case converter, Word Counter, Text Diff Checker |
 | Privacy | Image metadata remover |
 | PDF (beta) | Merge PDF, Organize PDF, Split PDF |
 
@@ -215,6 +215,7 @@ loaded only when needed. Prefer capability entries over the root barrel:
 | `@zutools/core/text` | Uppercase, lowercase, title, camel, snake and kebab case |
 | `@zutools/core/timestamp` | Convert Unix seconds/milliseconds and JavaScript dates |
 | `@zutools/core/word-counter` | Words, graphemes, sentences, paragraphs and reading time |
+| `@zutools/core/text-diff` | Compare text with Smart, word, line or character precision and numbered rows; Smart falls back to lines for large inputs |
 | `@zutools/core/image` | Load images, render Canvas and create `Blob` output |
 | `@zutools/core/image-metadata` | Read local EXIF, PNG and WebP metadata |
 | `@zutools/core/pdf` | Local PDF merge, organize, split and inspection |
@@ -314,6 +315,7 @@ Available stylesheets:
 | `@zutools/react/styles.css` | Complete portal and all tool workspaces |
 | `@zutools/react/workspace.css` | Tool implementations without the catalogue shell |
 | `@zutools/react/word-counter.css` | Isolated Word Counter only |
+| `@zutools/react/text-diff-checker.css` | Isolated Text Diff Checker only |
 
 ## Architecture
 
@@ -360,7 +362,9 @@ externalized consistently so the comparison measures ZU Tools code only.
 |---|---:|---:|
 | `@zutools/core/word-counter` | 708 B | — |
 | `@zutools/react/word-counter` | 1.1 kB | 885 B |
-| Complete React portal | 14.3 kB | 5.6 kB |
+| `@zutools/core/text-diff` | 3.9 kB | — |
+| `@zutools/react/text-diff-checker` | 4.2 kB | 2.5 kB |
+| Complete React portal | 25.9 kB | 10.5 kB |
 
 CI fails when a measured bundle grows beyond the committed tolerance. See
 [`benchmarks/README.md`](benchmarks/README.md) for the update procedure.

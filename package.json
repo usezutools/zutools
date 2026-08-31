@@ -50,6 +50,7 @@
     "public-boundary:check": "node scripts/check-public-boundary.mjs",
     "release:check": "npm run public-boundary:check && node scripts/check-release.mjs",
     "publish:dry-run": "npm run release:check && npm publish --dry-run --workspace=@zutools/core && npm publish --dry-run --workspace=@zutools/react",
-    "test:pdf:browser": "playwright test --config playwright.pdf.config.mjs"
+    "test:pdf:browser": "playwright test --config playwright.pdf.config.mjs",
+    "test:tools:browser": "playwright test --config playwright.tools.config.mjs"
   }
 }

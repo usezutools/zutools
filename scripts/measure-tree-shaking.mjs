@@ -158,6 +158,14 @@ try {
     join(consumerDir, 'core-pdf.js'),
     `import { createPdfToolsClient } from '@zutools/core/pdf';\nconsole.log(createPdfToolsClient);\n`
   );
+  await writeFile(
+    join(consumerDir, 'core-text-diff.js'),
+    `import { compareText } from '@zutools/core/text-diff';\nconsole.log(compareText('before', 'after'));\n`
+  );
+  await writeFile(
+    join(consumerDir, 'react-text-diff-checker.js'),
+    `import '@zutools/react/text-diff-checker.css';\nimport { TextDiffChecker } from '@zutools/react/text-diff-checker';\nconsole.log(TextDiffChecker);\n`
+  );
   for (const tool of ['merge-pdf', 'organize-pdf', 'split-pdf']) {
     await writeFile(
       join(consumerDir, `react-${tool}.js`),
@@ -176,7 +184,9 @@ try {
   const report = {
     coreWordCounter: await measure('core-word-counter.js'),
     corePdfClient: await measure('core-pdf.js'),
+    coreTextDiff: await measure('core-text-diff.js'),
     reactWordCounter: await measure('react-word-counter.js', reactExternals),
+    reactTextDiffChecker: await measure('react-text-diff-checker.js', reactExternals),
     reactMergePdf: await measure('react-merge-pdf.js', reactExternals),
     reactOrganizePdf: await measure('react-organize-pdf.js', reactExternals),
     reactSplitPdf: await measure('react-split-pdf.js', reactExternals),
@@ -191,6 +201,14 @@ try {
   assert.ok(
     report.reactWordCounter.css.gzipBytes < report.reactPortal.css.gzipBytes,
     'The individual tool CSS must be smaller than the complete portal CSS'
+  );
+  assert.ok(
+    report.reactTextDiffChecker.javascript.gzipBytes < report.reactPortal.javascript.gzipBytes,
+    'The text diff React export must be smaller than the complete portal'
+  );
+  assert.ok(
+    report.reactTextDiffChecker.css.gzipBytes < report.reactPortal.css.gzipBytes,
+    'The text diff React CSS must be smaller than the complete portal CSS'
   );
   for (const entry of ['reactMergePdf', 'reactOrganizePdf', 'reactSplitPdf']) {
     assert.ok(

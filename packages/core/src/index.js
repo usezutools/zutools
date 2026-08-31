@@ -5,6 +5,7 @@ export * from './image.js';
 export * from './image-metadata.js';
 export * from './json.js';
 export * from './text.js';
+export * from './text-diff.js';
 export * from './timestamp.js';
 export {
   analyzeText,

@@ -62,6 +62,7 @@ complete source catalogue comes from `@zutools/core/catalog`.
 | `@zutools/react/styles.css` | Catalogue shell and every tool workspace |
 | `@zutools/react/workspace.css` | Implementations without the catalogue shell |
 | `@zutools/react/word-counter.css` | Isolated Word Counter styles |
+| `@zutools/react/text-diff-checker.css` | Isolated Text Diff Checker styles |
 
 The package uses plain CSS. Override `--zutools-text`, `--zutools-muted` and
 `--zutools-accent` on the portal root to match your application.
@@ -92,6 +93,27 @@ for the full portal API, theming, architecture and consumer examples.
 
 [MIT](LICENSE) for ZU Tools original code. Dependencies retain their own
 licenses.
+
+## Independent Text Diff Checker
+
+```jsx
+import { TextDiffChecker } from '@zutools/react/text-diff-checker';
+import '@zutools/react/text-diff-checker.css';
+
+<TextDiffChecker language="es" />
+```
+
+The component includes split and unified numbered views, optional live
+comparison, local text-file inputs, change navigation and bidirectional change
+application, source copying, whitespace/case options, line wrapping and change
+statistics.
+
+Comparison runs in a dedicated Web Worker so large inputs do not block the UI.
+Source metrics and rendered rows are memoized; very long logical lines start in
+no-wrap mode to avoid an unnecessarily expensive layout.
+
+It compares two text versions locally by words, lines or characters and can
+ignore case or whitespace differences.
 
 ## Independent PDF tools (beta)
 

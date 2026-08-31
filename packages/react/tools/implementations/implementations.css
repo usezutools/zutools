@@ -1,4 +1,5 @@
 @import './WordCounter.css';
+@import './TextDiffChecker.css';
 
 .tool-workspace-layer {
   position: fixed;

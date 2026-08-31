@@ -15,6 +15,7 @@ await build({
     json: 'src/json.js',
     pdf: 'src/pdf.js',
     text: 'src/text.js',
+    'text-diff': 'src/text-diff.js',
     timestamp: 'src/timestamp.js',
     'word-counter': 'src/word-counter.js',
   },
@@ -28,6 +29,8 @@ await build({
 
 await mkdir('dist/catalog', { recursive: true });
 await copyFile('catalog/tools.json', 'dist/catalog/tools.json');
+await mkdir('dist/licenses', { recursive: true });
+await copyFile('../../node_modules/diff/LICENSE', 'dist/licenses/TEXT-DIFF-LICENSE.txt');
 
 const sourceFiles = await readdir('src');
 await Promise.all(
